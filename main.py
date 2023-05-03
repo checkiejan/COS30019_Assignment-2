@@ -1,4 +1,6 @@
 import sys
+import KB as KB
+
 with open(sys.argv[2],"r") as f: 
     track = f.readline().strip("[\n]")
     tracks = f.readline().strip("[\n] ")[:-1].split(";")
@@ -18,3 +20,4 @@ elif len(sys.argv) > 2:
     print("wrong number of argument")
 else:
     pass
+

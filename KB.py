@@ -1,6 +1,14 @@
 class Symbol:
-    def __init__(self,character):
+    def __init__(self,character, logic):
         self.character = character
+        self.logic = logic
+    
+    def logic(self):
+        return self.logic
+    
+    def character(self):
+        return self.character
+    
 
 class KB:
     def __init__(self):
