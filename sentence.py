@@ -58,8 +58,8 @@ class Sentence:
                 if not self.containSymbol(x):   
                     self.symbols.append(temp)
                 self.sentence.append(temp)
-    def setValue(self,dict):
-        for k,v in dict.items():
+    def setValue(self,model):
+        for k,v in model.items():
             temp = self.getSymbol(k)
             if temp is not None:
                 temp.setValue(v)
