@@ -9,8 +9,8 @@ with open("test.txt","r") as f:
     kb = KB(tracks)
     print(tracks)
     
-for s in kb.sentences:
-    print(s.lst)
+for s in kb.symbols:
+    print(s)
 
 # methods = ["tt","fc","bc"]
 # if len(sys.argv) == 3:

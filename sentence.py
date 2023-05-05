@@ -75,7 +75,6 @@ class Sentence:
                 result = self.sentence[index].getValue()
             
                 if  index + 1 < len(self.sentence) and self.sentence[index+1] not in self.symbols:
-                    #print(self.sentence[index+1])
                     func =  self.operators[self.sentence[index+1]]
                     result = func(back, result)
                     back = result
