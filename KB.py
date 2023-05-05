@@ -9,12 +9,6 @@ class Symbol:
     def character(self):
         return self.character
     
-    def setCharacter(self, character):
-        self.character = character
-    
-    def setLogic(self, logic):
-        self.logic = logic
-    
 
 class KB:
     def __init__(self):

@@ -3,8 +3,10 @@ import KB as KB
 
 with open(sys.argv[2],"r") as f: 
     track = f.readline().strip("[\n]")
-    tracks = f.readline().strip("[\n] ")[:-1].split(";")
-    print(track)
+    tracks = f.readline().strip("[\n] ")[:-1].strip().split(";")
+    for i in range(len(tracks)):
+        tracks[i] = tracks[i].strip()
+    print(tracks)
     
 
 methods = ["tt","fc","bc"]
