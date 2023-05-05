@@ -13,3 +13,12 @@ class KB:
             self.sentences.append(Sentence(string))
             for x in lst:
                 self.symbols[x] = True
+                
+    def PLTrue(self,model):
+        for s in self.sentences:
+            s.setValue(model)
+            if not s.result:
+                return False
+        return True
+    
+    

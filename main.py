@@ -8,9 +8,10 @@ with open("test.txt","r") as f:
         tracks[i] = tracks[i].strip()
     kb = KB(tracks)
     print(tracks)
-    
-for s in kb.symbols:
-    print(s)
+temp  = kb.symbols.copy()
+for t in temp:
+    temp[t] = False
+    print(kb.symbols[t])
 
 # methods = ["tt","fc","bc"]
 # if len(sys.argv) == 3:
