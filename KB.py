@@ -1,21 +1,13 @@
-class Symbol:
-    def __init__(self,character, logic):
-        self.character = character
-        self.logic = logic
-    
-    def logic(self):
-        return self.logic
-    
-    def character(self):
-        return self.character
-    
-
 class KB:
-    def __init__(self):
+    def __init__(self,lst):
         self.sentences = []
-        self.symbols = []
+        self.symbols = {}
+        for s in lst:
+            self.addSentence(s)
     
     def addSentence(self, string):
         if string not in self.sentences:
-            self.sentences.append(string)
-            
+            lst = re.findall("[a-zA-Z0-9]+", string)
+            self.sentences.append(Sentence(string))
+            for x in lst:
+                self.symbols[x] = True
