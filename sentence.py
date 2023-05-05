@@ -40,7 +40,8 @@ class Sentence:
         return None
         
     def create(self,string):
-        lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\B=>", string)
+        lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|=>", string)
+        self.lst = lst
         i = 0
         while  i < len(lst):
             if lst[i] in self.operators:
