@@ -1,3 +1,5 @@
+from sentence import Sentence
+import re
 class KB:
     def __init__(self,lst):
         self.sentences = []
@@ -11,3 +13,9 @@ class KB:
             self.sentences.append(Sentence(string))
             for x in lst:
                 self.symbols[x] = True
+
+    def PLTrue(self, model):
+        for symbol in self.symbols:
+            if not (model[symbol] and self.symbols[symbol]):
+                return False
+            

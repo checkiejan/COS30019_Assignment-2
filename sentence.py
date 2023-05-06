@@ -58,6 +58,7 @@ class Sentence:
                 if not self.containSymbol(x):   
                     self.symbols.append(temp)
                 self.sentence.append(temp)
+                
     def setValue(self,dict):
         for k,v in dict.items():
             temp = self.getSymbol(k)
