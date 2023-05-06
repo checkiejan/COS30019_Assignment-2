@@ -17,7 +17,7 @@ class KB:
     def PLTrue(self,model):
         for s in self.sentences:
             s.setValue(model)
-            if not s.result:
+            if s.result() == False:
                 return False
         return True
     
