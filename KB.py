@@ -14,8 +14,12 @@ class KB:
             for x in lst:
                 self.symbols[x] = True
 
-    def PLTrue(self, model):
-        for symbol in self.symbols:
-            if not (model[symbol] and self.symbols[symbol]):
+                
+    def PLTrue(self,model):
+        for s in self.sentences:
+            s.setValue(model)
+            if s.result() == False:
                 return False
-            
+        return True
+    
+    

@@ -1,7 +1,7 @@
 class PropositionalSymbol:
     def __init__(self,character):
         self.character = character
-        self.value = True
+        self.value = False
 
     def getValue(self):
         return self.value
