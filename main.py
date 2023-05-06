@@ -19,7 +19,7 @@ with open("test.txt","r") as f:
     
 TT.TTEntail(kb,query)
 #print(kb.PLTrue({'p2': True, 'p3': True, 'p1': True, 'c': True, 'e': True, 'b': True, 'f': True, 'g': False, 'h': False, 'd': True, 'a': True}))
-print(TT.output)
+print(TT.getOutput())
 lst =[
     {'p2': True, 'p3': True, 'p1': True, 'c': True, 'e': True, 'b': True, 'f': True, 'g': True, 'h': True, 'd': True, 'a': True},
     {'p2': True, 'p3': True, 'p1': True, 'c': True, 'e': True, 'b': True, 'f': True, 'g': False, 'h': True, 'd': True, 'a': True},
