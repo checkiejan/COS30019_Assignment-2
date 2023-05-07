@@ -31,9 +31,9 @@ with open("test.txt","r") as f:
 # kb.setValue( {'p2': True, 'p3': False, 'p1': False, 'c': False, 'e': False, 'b': True, 
 #               'f': False, 'g': False, 'h': False, 'd': False, 'a': True})
 
-# FC.infer(kb, query)
-TT.TTEntail(kb,query)
-print(TT.getOutput())
+FC.infer(kb, query)
+#TT.TTEntail(kb,query)
+print(FC.getOutput())
 
 
 
