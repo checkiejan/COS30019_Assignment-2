@@ -47,7 +47,7 @@ class FC:
                     for i in range(len(sentence.lst)-2):
                         if sentence.lst[i] == currentSymbol:
                             if (sentenceCount[sentence] > 0):
-                                # decrease the point when the a match is found
+                                # decrease the point when a match is found
                                 sentenceCount[sentence] -= 1
                                 # append the symbol when the count reaches 0
                                 if sentenceCount[sentence]  <= 0:
