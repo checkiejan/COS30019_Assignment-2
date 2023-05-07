@@ -6,7 +6,7 @@ class FC:
     def __init__(self) -> None:
         self.output = ""
 
-    def getOuput(self):
+    def getOutput(self):
         return self.output
 
     def infer(self, kb, query):

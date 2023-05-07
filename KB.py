@@ -11,10 +11,16 @@ class KB:
         if string not in self.sentences:
             lst = re.findall("[a-zA-Z0-9]+", string)
             self.sentences.append(Sentence(string))
-            for x in lst:
-                self.symbols[x] = True
+            if len(lst) == 1:
+                self.symbols[lst[0]] = True
+            else:
+                for x in lst:
+                    self.symbols[x] = False
 
-                
+    def setValue(self,dict):
+        for k,v in dict.items():
+            if k in self.symbols.keys():
+                self.symbols[k] = v
     def PLTrue(self,model):
         for s in self.sentences:
             s.setValue(model)
