@@ -2,11 +2,13 @@ import sys
 from TT import TT
 from FC import FC
 from KB import KB
+from BC import BC
 from sentence import Sentence
 kb = None
 query = None
 TT = TT()
 FC = FC()
+BC = BC()
 with open("test.txt","r") as f: 
     track = f.readline().strip("[\n]")
     tracks = f.readline().strip("[\n] ")[:-1].strip().split(";")
@@ -32,9 +34,11 @@ with open("test.txt","r") as f:
 #               'f': False, 'g': False, 'h': False, 'd': False, 'a': True})
 
 # FC.infer(kb, query)
-TT.TTEntail(kb,query)
-print(TT.getOutput())
-
+# TT.TTEntail(kb,query)
+BC.Infer(kb, query)
+# print(TT.getOutput())
+# print(FC.getOutput())
+print(BC.getOutput())
 
 
 

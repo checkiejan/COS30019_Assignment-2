@@ -9,13 +9,17 @@ class KB:
     
     def addSentence(self, string):
         if string not in self.sentences:
+            sentence = Sentence(string)
             lst = re.findall("[a-zA-Z0-9]+", string)
-            self.sentences.append(Sentence(string))
+            self.sentences.append(sentence)
+            sentence.setCount()
+            
             if len(lst) == 1:
                 self.symbols[lst[0]] = True
             else:
                 for x in lst:
                     self.symbols[x] = False
+            
 
     def setValue(self,dict):
         for k,v in dict.items():

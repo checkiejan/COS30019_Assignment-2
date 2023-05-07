@@ -24,6 +24,8 @@ class Sentence:
         self.operators = {"&": And, "=>": Imply ,"<=>": Bicondition,"~": Not,"||": Or}
         self.sentence = []
         self.create(string)
+        self.count = 0
+
         
     def containSymbol(self,symbol):
         s = PropositionalSymbol(symbol)
@@ -65,6 +67,11 @@ class Sentence:
             if temp is not None:
                 temp.setValue(v)
 
+    def setCount(self):
+         for symbol in range(len(self.lst)-2):
+                if re.search("[a-zA-Z0-9]+", self.lst[symbol]) != None:
+                    self.count += 1
+    
     def result(self):
         if len(self.sentence) == 1:
             return  self.symbols[0].getValue()

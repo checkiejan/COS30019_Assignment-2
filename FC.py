@@ -22,10 +22,8 @@ class FC:
 
         # Initiallize the count for each sentence 
         for sentence in kb.sentences:
-            sentenceCount[sentence] = 0
-            for symbol in range(len(sentence.lst)-2):
-                if re.search("[a-zA-Z0-9]+", sentence.lst[symbol]) != None:
-                    sentenceCount[sentence] += 1
+            sentenceCount[sentence] = sentence.count
+           
             print(sentence.lst, sentenceCount[sentence])
 
     
