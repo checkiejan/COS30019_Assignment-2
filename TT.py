@@ -33,7 +33,6 @@ class TT:
                 if query.result():
                     self.count +=1
                 else:
-                    print(model)
                     self.check = "NO" 
         else:
             s = symbols.pop(0)
