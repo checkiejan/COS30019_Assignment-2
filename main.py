@@ -28,11 +28,12 @@ with open("test.txt","r") as f:
 #     {'p2': True, 'p3': True, 'p1': True, 'c': True, 'e': True, 'b': True, 'f': True, 'g': False, 'h': False, 'd': True, 'a': True}
 # ]
 
-kb.symbols = {'p2': True, 'p3': False, 'p1': False, 'c': False, 'e': False, 'b': True, 
-              'f': False, 'g': False, 'h': False, 'd': False, 'a': True}
+# kb.setValue( {'p2': True, 'p3': False, 'p1': False, 'c': False, 'e': False, 'b': True, 
+#               'f': False, 'g': False, 'h': False, 'd': False, 'a': True})
 
-FC.infer(kb, query)
-print(FC.getOuput())
+# FC.infer(kb, query)
+TT.TTEntail(kb,query)
+print(TT.getOutput())
 
 
 
