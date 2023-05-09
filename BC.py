@@ -1,5 +1,6 @@
 import re
-
+import sys
+sys.setrecursionlimit(10000)
 class BC:
     def __init__(self)-> None:
         self.output = "NO"
@@ -10,21 +11,23 @@ class BC:
     
 
 
-    def Infer(self, kb, query):
-        if self.TruthValue(kb, query.lst[0]):
+    def infer(self, kb, query):
+        if self.TruthValue(kb, query.lst[0],[]):
             self.output = "YES: "
             for symbol in self.outputSymbols:
                 if symbol != query.lst[0]:
                     self.output += symbol + ", "
             self.output += query.lst[0]
+        
+        
 
 
 
-    def TruthValue(self, kb, query):
+    def TruthValue(self, kb, query,explored):
         if kb.symbols[query]:
+            #if query not in self.outputSymbols:
             self.outputSymbols.append(query)
             return True
-        
         for sentence in kb.sentences:
             # Check if the right hand side of the sentence contain the symbol in the query
             if sentence.lst[len(sentence.lst) - 2] == query:
@@ -38,19 +41,23 @@ class BC:
                 trueSymbolCount = 0
                 for symbol in leftHandSymbols:
                     if symbol == query: break
+                    
+                    if symbol in explored: 
+                        if kb.symbols[symbol] == False:
+                            break 
+                    else:
+                        explored.append(symbol); 
                 
-                    kb.symbols[symbol] = self.TruthValue(kb, symbol)
+                    kb.symbols[symbol] = self.TruthValue(kb, symbol,explored.copy())
 
                     if (kb.symbols[symbol] == False): break
                     trueSymbolCount += 1
 
                 # Check if all the symbols in the left hand side is true
                 if trueSymbolCount == len(leftHandSymbols):
+                    #if query not in self.outputSymbols:
                     self.outputSymbols.append(query)
                     return True
-                
-
-
         return False
 
 

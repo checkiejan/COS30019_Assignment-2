@@ -9,7 +9,7 @@ class TT:
     def getOutput(self):
         return self.output
 
-    def TTEntail(self,kb,query):
+    def infer(self,kb,query):
         temp = []
         for x in query.symbols:
             temp.append(x.getCharacter())

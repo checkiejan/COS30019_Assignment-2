@@ -9,7 +9,7 @@ query = None
 TT = TT()
 FC = FC()
 BC = BC()
-with open("test.txt","r") as f: 
+with open(sys.argv[2],"r") as f: 
     track = f.readline().strip("[\n]")
     tracks = f.readline().strip("[\n] ")[:-1].strip().split(";")
     for i in range(len(tracks)):
@@ -35,10 +35,6 @@ with open("test.txt","r") as f:
 
 # FC.infer(kb, query)
 # TT.TTEntail(kb,query)
-BC.Infer(kb, query)
-# print(TT.getOutput())
-# print(FC.getOutput())
-print(BC.getOutput())
 
 
 
@@ -48,17 +44,20 @@ print(BC.getOutput())
 # for x in lst:
 #     print(kb.PLTrue(x))
 
-# methods = ["tt","fc","bc"]
-# if len(sys.argv) == 3:
-#     method = sys.argv[1].lower()
+methods = {"tt":TT,"fc": FC,"bc":BC}
+if len(sys.argv) == 3:
+    method = sys.argv[1].lower()
     
-#     if method in methods:
-#         pass
+    if method in methods.keys():
+        t = methods[method]
+        t.infer(kb,query)
+        print(t.output)
+        pass
        
-#     else:
-#         print("Unknown method")
-# elif len(sys.argv) > 2:
-#     print("wrong number of argument")
-# else:
-#     pass
+    else:
+        print("Unknown method")
+elif len(sys.argv) > 2:
+    print("wrong number of argument")
+else:
+    pass
 

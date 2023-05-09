@@ -1,0 +1,4 @@
+Tell: 
+a & b => p3;  c & p3 => p2; c & a => p3; a; c;
+Ask: 
+p2
