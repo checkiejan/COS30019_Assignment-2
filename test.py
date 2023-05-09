@@ -1,4 +1,11 @@
 import re
+import numpy as np
+import pandas as pd
+df = pd.DataFrame({"name": ['Alfred', 'Batman', 'Catwoman'],
+                   "toy": [np.nan, 'Batmobile', 'Bullwhip'],
+                   "born": [pd.NaT, pd.Timestamp("1940-04-25"),
+                            pd.NaT]})
+df.dropna(axis='columns',ignore_index = True)
 from sentence import Sentence
 string ="f&g"
 print(re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\B=>", string))

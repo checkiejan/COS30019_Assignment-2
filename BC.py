@@ -25,8 +25,8 @@ class BC:
 
     def TruthValue(self, kb, query,explored):
         if kb.symbols[query]:
-            #if query not in self.outputSymbols:
-            self.outputSymbols.append(query)
+            if query not in self.outputSymbols:
+                self.outputSymbols.append(query)
             return True
         for sentence in kb.sentences:
             # Check if the right hand side of the sentence contain the symbol in the query
@@ -55,8 +55,8 @@ class BC:
 
                 # Check if all the symbols in the left hand side is true
                 if trueSymbolCount == len(leftHandSymbols):
-                    #if query not in self.outputSymbols:
-                    self.outputSymbols.append(query)
+                    if query not in self.outputSymbols:
+                        self.outputSymbols.append(query)
                     return True
         return False
 
