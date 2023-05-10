@@ -48,7 +48,7 @@ class Sentence:
         while  i < len(lst):
             if lst[i] in self.operators:
                 temp1 = lst[i]
-                lst[i] = lst[i+1]
+                lst[i] = lst[i+1]       
                 lst[i+1] = temp1
                 i +=1 
             i += 1
@@ -59,7 +59,9 @@ class Sentence:
                 temp = PropositionalSymbol(x)
                 if not self.containSymbol(x):   
                     self.symbols.append(temp)
-                self.sentence.append(temp)
+                    self.sentence.append(temp)
+                else:
+                    self.sentence.append(self.getSymbol(x))
 
     def setValue(self,model):
         for k,v in model.items():

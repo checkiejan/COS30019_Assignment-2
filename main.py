@@ -11,9 +11,11 @@ FC = FC()
 BC = BC()
 with open(sys.argv[2],"r") as f: 
     track = f.readline().strip("[\n]")
-    tracks = f.readline().strip("[\n] ")[:-1].strip().split(";")
+    tracks = f.readline()
+    tracks = tracks.strip("[\n] ")[:-1].strip().split(";")
     for i in range(len(tracks)):
         tracks[i] = tracks[i].strip()
+        
     kb = KB(tracks)
     
     track = f.readline().strip("[\n]")
