@@ -22,18 +22,13 @@ with open(sys.argv[2],"r") as f:
     track = f.readline().strip("[\n]")
     query = Sentence(track)
     
-    
-# TT.TTEntail(kb,query)
-# #print(kb.PLTrue({'p2': True, 'p3': True, 'p1': True, 'c': True, 'e': True, 'b': True, 'f': True, 'g': False, 'h': False, 'd': True, 'a': True}))
-# print(TT.getOutput())
-# lst =[
-#     {'p2': True, 'p3': True, 'p1': True, 'c': True, 'e': True, 'b': True, 'f': True, 'g': True, 'h': True, 'd': True, 'a': True},
-#     {'p2': True, 'p3': True, 'p1': True, 'c': True, 'e': True, 'b': True, 'f': True, 'g': False, 'h': True, 'd': True, 'a': True},
-#     {'p2': True, 'p3': True, 'p1': True, 'c': True, 'e': True, 'b': True, 'f': True, 'g': False, 'h': False, 'd': True, 'a': True}
-# ]
-
-# kb.setValue( {'p2': True, 'p3': False, 'p1': False, 'c': False, 'e': False, 'b': True, 
-#               'f': False, 'g': False, 'h': False, 'd': False, 'a': True})
+lst = [
+    {'a': True, 'b': True, 'p3': True, 'p2': True, 'c': True, 'p1': True},
+    {'a': True, 'b': False, 'p3': True, 'p2': True, 'c': True, 'p1': True}
+]
+#TT.infer(kb,query)
+#print(kb.PLTrue({'a': True, 'b': True, 'p3': True, 'p2': True, 'c': True, 'p1': True}))
+#print(TT.getOutput())
 
 # FC.infer(kb, query)
 # TT.TTEntail(kb,query)
