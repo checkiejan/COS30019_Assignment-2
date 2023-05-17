@@ -33,31 +33,29 @@ lst = [
 # FC.infer(kb, query)
 # TT.TTEntail(kb,query)
 
-FC.infer(kb, query)
-print(FC.getOutput())
+# FC.infer(kb, query)
+# print(FC.getOutput())
 
 
 
 
 
 
-# for x in lst:
-#     print(kb.PLTrue(x))
 
-# methods = {"tt":TT,"fc": FC,"bc":BC}
-# if len(sys.argv) == 3:
-#     method = sys.argv[1].lower()
+methods = {"tt":TT,"fc": FC,"bc":BC}
+if len(sys.argv) == 3:
+    method = sys.argv[1].lower()
     
-#     if method in methods.keys():
-#         t = methods[method]
-#         t.infer(kb,query)
-#         print(t.output)
-#         pass
+    if method in methods.keys():
+        t = methods[method]
+        t.infer(kb,query)
+        print(t.output)
+        pass
        
-#     else:
-#         print("Unknown method")
-# elif len(sys.argv) > 2:
-#     print("wrong number of argument")
-# else:
-#     pass
+    else:
+        print("Unknown method")
+elif len(sys.argv) > 2:
+    print("wrong number of argument")
+else:
+    pass
 

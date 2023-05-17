@@ -129,6 +129,7 @@ class Sentence:
                 output_queue.append(self.getSymbolValue(token))
             else:
                 output_queue.append(token)
+        print(output_queue)
         return self.evaluate_rpn(output_queue)
 
     def posfixEval(self):

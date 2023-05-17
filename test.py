@@ -127,11 +127,25 @@ variables = {"a": True, "c": False, "d":True,"b":True}
 # sentence3 = "A => B"
 # result3 = evaluate_sentence(sentence3, variables)
 # print(sentence3, "=", result3)
-
-sentence4 = "a & b =>p3"
+model = [
+{'a': True, 'c': True, 'd': True, 'b': True, 'f': True, 'g': True},
+{'a': True, 'c': True, 'd': True, 'b': True, 'f': False, 'g': True},
+{'a': True, 'c': True, 'd': True, 'b': True, 'f': False, 'g': False},
+{'a': True, 'c': True, 'd': True, 'b': False, 'f': True, 'g': True},
+{'a': True, 'c': True, 'd': True, 'b': False, 'f': False, 'g': True},
+{'a': True, 'c': True, 'd': True, 'b': False, 'f': False, 'g': False},
+{'a': True, 'c': True, 'd': False, 'b': True, 'f': True, 'g': True},
+{'a': True, 'c': True, 'd': False, 'b': True, 'f': False, 'g': True},
+{'a': True, 'c': True, 'd': False, 'b': True, 'f': False, 'g': False},
+{'a': True, 'c': True, 'd': False, 'b': False, 'f': True, 'g': True},
+{'a': True, 'c': True, 'd': False, 'b': False, 'f': False, 'g': True},
+{'a': True, 'c': True, 'd': False, 'b': False, 'f': False, 'g': False}
+]
+sentence4 = "~d & (~g => ~f)"
 sentence = Sentence(sentence4)
 #print(sentence.lst)
-sentence.setValue({'a': True, 'b': False, 'p3': True, 'p2': True, 'c': True, 'p1': True})
-print(sentence.result())
+for x in model:
+   
+    print(evaluate_sentence(sentence4,x))
 
 
