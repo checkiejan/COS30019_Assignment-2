@@ -140,3 +140,62 @@ class Sentence:
         self.lst = lst
         print(lst)
         
+def evaluate_sentence(sentence, variables):
+    sentence = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", sentence)
+    output_queue = []  # Output queue for the Reverse Polish Notation (RPN)
+    operator_stack = []  # Stack to store operators
+
+    precedence = {"~": 3, "&": 2, "||": 1, "=>": 0, "<=>": 0}
+
+    for token in sentence:
+        if token in ["~", "&", "||", "=>", "<=>"]:
+            while operator_stack and operator_stack[-1] != "(" and precedence[token] <= precedence[operator_stack[-1]]:
+                output_queue.append(operator_stack.pop())
+            operator_stack.append(token)
+        elif token == "(":
+            operator_stack.append(token)
+        elif token == ")":
+            while operator_stack and operator_stack[-1] != "(":
+                output_queue.append(operator_stack.pop())
+            operator_stack.pop()  # Remove "(" from stack
+        else:
+            output_queue.append(resolve_variable(token, variables))
+
+    while operator_stack:
+        output_queue.append(operator_stack.pop())
+
+    return evaluate_rpn(output_queue)
+
+
+def evaluate_rpn(expression):
+    print(expression)
+    stack = []
+    for token in expression:
+        if token in ["~", "&", "||", "=>", "<=>"]:
+            right_operand = stack.pop()
+            if token != "~":
+                left_operand = stack.pop()
+
+            if token == "~":
+                result = not right_operand
+            elif token == "&":
+                result = left_operand and right_operand
+            elif token == "||":
+                result = left_operand or right_operand
+            elif token == "=>":
+                result = (not left_operand) or right_operand
+            elif token == "<=>":
+                result = left_operand == right_operand
+
+            stack.append(result)
+        else:
+            stack.append(token)
+
+    return stack[0]
+
+
+def resolve_variable(token, variables):
+    if token in variables:
+        return variables[token]
+    else:
+        raise ValueError("Undefined variable: " + token)

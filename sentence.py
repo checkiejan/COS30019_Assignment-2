@@ -70,7 +70,7 @@ class Sentence:
                     self.sentence.append(self.getSymbol(x))
                     
     def createGeneric(self,string):
-        lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>", string)
+        lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", string)
         self.lst = lst
         self.posfixEval()
         symbols = re.findall("[a-zA-Z0-9]+", string)
@@ -129,10 +129,10 @@ class Sentence:
                 output_queue.append(self.getSymbolValue(token))
             else:
                 output_queue.append(token)
-        print(output_queue)
         return self.evaluate_rpn(output_queue)
 
     def posfixEval(self):
+        output_queue = []  # Output queue for the Reverse Polish Notation (RPN)
         operator_stack = []  # Stack to store operators
         lst = []
         precedence = {"~": 3, "&": 2, "||": 1, "=>": 0, "<=>": 0}
@@ -142,13 +142,15 @@ class Sentence:
                 while operator_stack and operator_stack[-1] != "(" and precedence[token] <= precedence[operator_stack[-1]]:
                     temp = operator_stack.pop()
                     lst.append(temp)
-                   
+                    output_queue.append(temp)
                 operator_stack.append(token)
             elif token == "(":
                 operator_stack.append(token)
             elif token == ")":
                 while operator_stack and operator_stack[-1] != "(":
-                    lst.append(token)
+                    temp = operator_stack.pop()
+                    lst.append(temp)
+                    output_queue.append(temp)
                 operator_stack.pop()  # Remove "(" from stack
             else:
                 lst.append(token)
@@ -156,6 +158,8 @@ class Sentence:
         while operator_stack:
             temp = operator_stack.pop()
             lst.append(temp)
+            output_queue.append(temp)
+        
         self.lst = lst
             
     def evaluate_rpn(self,expression):

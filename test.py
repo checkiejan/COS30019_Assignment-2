@@ -56,31 +56,37 @@ def evaluate_sentence(sentence, variables):
     sentence = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", sentence)
     output_queue = []  # Output queue for the Reverse Polish Notation (RPN)
     operator_stack = []  # Stack to store operators
-
+    lst = []
     precedence = {"~": 3, "&": 2, "||": 1, "=>": 0, "<=>": 0}
 
     for token in sentence:
         if token in ["~", "&", "||", "=>", "<=>"]:
             while operator_stack and operator_stack[-1] != "(" and precedence[token] <= precedence[operator_stack[-1]]:
-                output_queue.append(operator_stack.pop())
+                temp = operator_stack.pop()
+                lst.append(temp)
+                output_queue.append(temp)
             operator_stack.append(token)
         elif token == "(":
             operator_stack.append(token)
         elif token == ")":
             while operator_stack and operator_stack[-1] != "(":
-                output_queue.append(operator_stack.pop())
+                temp = operator_stack.pop()
+                lst.append(temp)
+                output_queue.append(temp)
             operator_stack.pop()  # Remove "(" from stack
         else:
+            lst.append(token)
             output_queue.append(resolve_variable(token, variables))
 
     while operator_stack:
-        output_queue.append(operator_stack.pop())
-
+        temp = operator_stack.pop()
+        lst.append(temp)
+        output_queue.append(temp)
+    print(output_queue)
     return evaluate_rpn(output_queue)
 
 
 def evaluate_rpn(expression):
-    print(expression)
     stack = []
     for token in expression:
         if token in ["~", "&", "||", "=>", "<=>"]:
@@ -143,9 +149,11 @@ model = [
 ]
 sentence4 = "~d & (~g => ~f)"
 sentence = Sentence(sentence4)
-#print(sentence.lst)
-for x in model:
-   
-    print(evaluate_sentence(sentence4,x))
+print(sentence.lst)
+print(evaluate_sentence(sentence4,model[0]))
+# for x in model:
+#     sentence.setValue(x)
+#     #print(evaluate_sentence(sentence4,x))
+#     print(sentence.result())
 
 
