@@ -24,17 +24,18 @@ class FC:
         for sentence in kb.sentences:
             sentenceCount[sentence] = sentence.count
            
-            print(sentence.lst, sentenceCount[sentence])
+            #print(sentence.lst, sentenceCount[sentence])
 
-    
+        
         while len(inferredSymbol) > 0:
             # Get the next symbol in the list of true symbols
+            
             currentSymbol = inferredSymbol.pop(0)
 
             if currentSymbol == query.lst[0]:
                 self.output = "YES: " + self.output + currentSymbol
                 return
-
+            
             if (symbolList[currentSymbol] == False):
                 symbolList[currentSymbol] = True
                 self.output += currentSymbol + " ,"
@@ -48,6 +49,7 @@ class FC:
                                 # decrease the point when a match is found
                                 sentenceCount[sentence] -= 1
                                 # append the symbol when the count reaches 0
+                                #print(sentence.lst)
                                 if sentenceCount[sentence]  <= 0:
                                     inferredSymbol.append(sentence.lst[len(sentence.lst) - 2])
 

@@ -27,12 +27,12 @@ class TT:
         if self.output == "NO":
             return
         if len(symbols) == 0:
-            
             if kb.PLTrue(model):
                 query.setValue(model)
                 if query.result():
                     self.count +=1
                 else:
+                    print(model)
                     self.check = "NO" 
         else:
             s = symbols.pop(0)
