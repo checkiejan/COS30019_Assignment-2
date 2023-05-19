@@ -3,13 +3,15 @@ from TT import TT
 from FC import FC
 from KB import KB
 from BC import BC
+from WSAT import WSAT
 from sentence import Sentence
 kb = None
 query = None
 TT = TT()
 FC = FC()
 BC = BC()
-with open(sys.argv[2],"r") as f: 
+WSAT = WSAT()
+with open("test.txt","r") as f: 
     track = f.readline().strip("[\n]")
     tracks = f.readline()
     tracks = tracks.strip("[\n] ")[:-1].strip().split(";")
@@ -38,16 +40,13 @@ lst = [
 
 
 
-
-
-
-
-methods = {"tt":TT,"fc": FC,"bc":BC}
+methods = {"tt":TT,"fc": FC,"bc":BC, "wsat":WSAT}
 if len(sys.argv) == 3:
     method = sys.argv[1].lower()
     
     if method in methods.keys():
         t = methods[method]
+
         t.infer(kb,query)
         print(t.output)
         pass
