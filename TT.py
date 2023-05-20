@@ -15,7 +15,7 @@ class TT:
             temp.append(x.getCharacter())
         lst = kb.symbols.copy() 
         for x in temp:
-            lst[x] = True
+            lst[x] = False
         symbols = list(lst.keys())
         self.TTCheckAll(kb,query,symbols,{})
         if self.check == "NO":
@@ -30,10 +30,8 @@ class TT:
             if kb.PLTrue(model):
                 query.setValue(model)
                 if query.result():
-                    print(model)
                     self.count +=1
                 else:
-                    print(model)
                     self.check = "NO" 
         else:
             s = symbols.pop(0)

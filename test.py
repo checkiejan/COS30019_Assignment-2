@@ -157,3 +157,8 @@ print(evaluate_sentence(sentence4,model[0]))
 #     print(sentence.result())
 
 
+import sympy 
+import random
+from sympy.parsing.sympy_parser import parse_expr
+exp = parse_expr("~f = g")
+print(exp)

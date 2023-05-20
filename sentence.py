@@ -24,7 +24,7 @@ class Sentence:
         self.operators = {"&": And, "=>": Imply ,"<=>": Bicondition,"~": Not,"||": Or}
         self.sentence = []
         
-        self.generic = True
+        self.generic = False
         if self.generic:
             self.createGeneric(string)
         else:

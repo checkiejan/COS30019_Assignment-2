@@ -24,7 +24,7 @@ class BC:
 
 
     def TruthValue(self, kb, query,explored):
-        if kb.symbols[query]:
+        if query in kb.symbols.keys() and kb.symbols[query]:
             if query not in self.outputSymbols:
                 self.outputSymbols.append(query)
             return True
