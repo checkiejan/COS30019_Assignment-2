@@ -1,4 +1,4 @@
 TELL
-C & i & g & U & x & F & b & b & G & X & J & x & Z & M & M & J & l & X & x => l;G & G & G & F & l & V & V & l & V & X & H & Z & H & g => G;P & P & Z & i & M & x & i & D & C & F & H & i & V => F;g & M & D & g & M & P & w & P & J & D => F;H & D & x & V & Z & w & G & D & U => H;U & H & X & H & X & x & V & X & P & Z & w => X;X & U & V => l;M => w;G & V & M & J & w => M;M & C & D & C & U & G & F & x & x & X & X & G & b & D & b & D & l => H;Z & b & M & J & V & V & i & X & w & D & P & M & X & G => V;D & X & C => l;Z & F & D & G & Z & D & i => b;F & C & l & i & w & l & i => G;G;D;M;Z;V;l;C;
+l => V;V & W => V;W & W & W => F;W => F;V & V & l => l;W => l;l & V & F => F;V => V;F & V & W => W;V & l & W => W;F & W & W => l;W & W => W;l & W => l;V & W => F;V & F => V;W & W & W => W;F & F => F;W => W;F;W;V;
 ASK
-X
+l

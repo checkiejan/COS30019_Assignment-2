@@ -64,7 +64,11 @@ def processInput(tracks):
         result[i] = temp
     return result
         
-
+def writeError(track,query):
+    kb = ";".join(track) 
+    with open("error.txt", 'w') as f:
+            f.write(f"TELL\n{kb};\nASK\n{query.lst[0]}")
+    
 def readKB():
     tracks = None
     query = None
@@ -73,7 +77,7 @@ def readKB():
         tracks = f.readline()
         tracks = tracks.strip("[\n] ")[:-1].strip().split(";")
         for i in range(len(tracks)):
-            tracks[i] = tracks[i].strip()
+            tracks[i] = tracks[i].replace(" ", "")
         track = f.readline().strip("[\n]")
         track = f.readline().strip("[\n]")
         query = track
@@ -89,7 +93,7 @@ class LogicTest(unittest.TestCase):
                 createHornTest()
                 tracks,query = readKB()
                 tracks_processed = processInput(tracks)
-
+                self.track = tracks
                 Set = set()
                 for x in tracks_processed:
                     exp = parse_expr(x)
@@ -98,6 +102,7 @@ class LogicTest(unittest.TestCase):
                 self.result = sympy.logic.inference.entails(query_processed,Set)
                 res = True
             except:
+
                 continue
         self.KB = KB(tracks)
         self.query = Sentence(query)
@@ -110,6 +115,7 @@ class LogicTest(unittest.TestCase):
         self.FC = FC()
         self.KB = None
         self.query = None
+        self.track =None
         self.creatNewCase()
         
     def test_truth_table(self):
@@ -124,6 +130,8 @@ class LogicTest(unittest.TestCase):
                 flag = True
             if(flag != self.result):
                 test = False
+                print(f"TT fail:{i+1}")
+                writeError(self.track,self.query)
                 break
             print(f"TT pass:{i+1}")
         print()
@@ -131,7 +139,7 @@ class LogicTest(unittest.TestCase):
         
     def test_backward_chaining(self):
         test = True
-        for i in range(50):
+        for i in range(50*2):
             self.creatNewCase()
             self.BC = BC()
             self.BC.infer(self.KB, self.query)
@@ -140,8 +148,9 @@ class LogicTest(unittest.TestCase):
             if "YES" in result:
                 flag = True
             if(flag != self.result):
-                print("vl")
                 test = False
+                writeError(self.track,self.query)
+                print(f"BC fail:{i+1}")
                 break
             print(f"BC pass:{i+1}")
         print()
@@ -149,7 +158,7 @@ class LogicTest(unittest.TestCase):
         
     def test_forward_chaining(self):
         test = True
-        for i in range(50):
+        for i in range(50*2):
             self.creatNewCase()
             self.FC = FC()
             self.FC.infer(self.KB, self.query)
@@ -158,6 +167,8 @@ class LogicTest(unittest.TestCase):
             if "YES" in result:
                 flag = True
             if(flag != self.result):
+                writeError(self.track,self.query)
+                print(f"FC fail:{i+1}")
                 test = False
                 break
             print(f"FC pass:{i+1}")
