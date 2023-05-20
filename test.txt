@@ -1,4 +1,4 @@
 TELL
-p2=> p3; p3 => p1; c => e; b&e => f; f&g => h; p1=>d; p1&p3 => c; a; b;p2;
+U & A & C & U & A & o & f & v & x & n => A;L & y & M => o;y & U & K & X & C & X => o;o & A & Z & o & f & f & n & C & x & L & n & A => x;C & f & K & L & C & n & U & x & U & L & X => U;n & Z & y => y;M & K & U & x & x & U => L;x & o & A & n & v & M & y => f;n & U & M & X & C & n & n & K & n => M;U & C & o & f & Z & y & A & n & Z => K;s & f & v & L & Z & y & x & f & s & M & U & y & n & C => K;A & L => A;n & L & x & s & K & U & o & M & U & M & X & X => v;y & x & n & X & L => X;f & n => v;n & K & C & K & s & M & U & n => U;o & s => X;C & v & Z & K & n & f & v => M;o & A & y & n & K & x => o;y & Z & n => A;U & Z & f & s & Z & y & o & C & A & s & o & C => A;K & v & o & A & s & y & v & o => L;M & v & A & C => y;X & Z & f & f & L & s & o & n => X;v & M & A & L & U & L & n & U & s & K & K & y & s & M => v;v;f;K;s;n;C;o;x;L;A;Z;M;y;
 ASK
-b
+X
