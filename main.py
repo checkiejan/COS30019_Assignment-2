@@ -11,7 +11,7 @@ TT = TT()
 FC = FC()
 BC = BC()
 WSAT = WSAT()
-with open("test.txt","r") as f: 
+with open(sys.argv[2],"r") as f: 
     track = f.readline().strip("[\n]")
     tracks = f.readline()
     tracks = tracks.strip("[\n] ")[:-1].strip().split(";")

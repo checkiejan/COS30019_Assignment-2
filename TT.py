@@ -30,10 +30,9 @@ class TT:
             if kb.PLTrue(model):
                 query.setValue(model)
                 if query.result():
-                    print(model)
                     self.count +=1
                 else:
-                    print(model)
+                    
                     self.check = "NO" 
         else:
             s = symbols.pop(0)

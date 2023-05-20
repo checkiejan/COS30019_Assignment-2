@@ -14,9 +14,12 @@ class WSAT:
         flipChance = 0.5
 
         for i in range(maxIteration):
+            
             if (kb.PLTrue(randomModel)):
-                if (self.sentenceEvaluator(query, randomModel)):
-                    self.output = "YES "+ str(i)
+                    query.setValue(randomModel)
+                    if query.result():
+                        print(randomModel)
+                        self.output = "YES "+ str(i)
 
             
             randomSentence = self.getRandomFalseSentence(randomModel, kb.sentences)
@@ -54,7 +57,8 @@ class WSAT:
     def getRandomFalseSentence(self, randomModel, sentenceList):
         hasFalseClause = False
         for sentence in sentenceList:
-            if self.sentenceEvaluator(sentence, randomModel) == False:
+            sentence.setValue(randomModel)
+            if sentence.result() == False:
                 hasFalseClause = True
                 break
         if hasFalseClause == False:
@@ -62,7 +66,8 @@ class WSAT:
 
         while True:
             randomIndex =random.randint(0, len(sentenceList)-1)
-            if self.sentenceEvaluator(sentenceList[randomIndex], randomModel) == False:
+            sentenceList[randomIndex].setValue(randomModel)
+            if sentenceList[randomIndex].result() == False:
                 return sentenceList[randomIndex]
 
     def flipRandomSymbol(self, sentence, randomModel):
