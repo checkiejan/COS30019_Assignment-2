@@ -9,8 +9,6 @@ class BC:
     def getOutput(self):
         return self.output
     
-
-
     def infer(self, kb, query):
         if self.TruthValue(kb, query.lst[0],[]):
             self.output = "YES: "
@@ -19,10 +17,6 @@ class BC:
                     self.output += symbol + ", "
             self.output += query.lst[0]
         
-        
-
-
-
     def TruthValue(self, kb, query,explored):
         if query in kb.symbols.keys() and kb.symbols[query]:
             if query not in self.outputSymbols:

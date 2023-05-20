@@ -25,6 +25,7 @@ class KB:
         for k,v in dict.items():
             if k in self.symbols.keys():
                 self.symbols[k] = v
+
     def PLTrue(self,model):
         for s in self.sentences:
             s.setValue(model)
@@ -33,3 +34,4 @@ class KB:
         return True
     
     
+

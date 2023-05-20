@@ -1,4 +1,4 @@
 TELL
-q & C => q;q => q;C & q => q;q & u => u;C => u;q => u;q & C => u;C => C;C & u => q;C & C => C;C & u => u;q & u => u;u & q => q;u => q;u & C => q;u & q => C;q => C;u => q;u & C => u;C => u;u => C;q;C;
+J & F & T & m & m & J => G;a & G & F & T & y & y & J & y => y;T & g & v & y & C & J & G & C & J => F;v & T & v & m & v => T;T => C;g & y & G => v;F & m & m & v & m & T & F => G;C & T & v & m & y & a & v & g => T;J & J & m & m => m;F => G;g & g & v & J & y & v & J => C;G & g & a & F & m & a & g => y;m & a & m => T;y & T & a & a => g;F & v => g;y => T;T & m & T & m & a & y & y & a & T => a;T & F & F & C & a => C;C & G & a & J & g & G & G => y;m & F & y & J & y & m & a & y => F;G & g & C & G & g & T & m & F & v => J;G;T;a;v;g;J;y;C;m;
 ASK
-u
+F
