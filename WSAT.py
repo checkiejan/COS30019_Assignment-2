@@ -89,33 +89,6 @@ class WSAT:
             randomModel[symbolToFlip] = not randomModel[symbolToFlip]
 
 
-    def sentenceEvaluator(self, sentence, symbolList):
-        result = []
-        LHS = None
-        RHS = None
-        for symbol in sentence.lst:
-            if re.search("[a-zA-Z0-9]+", symbol) != None: 
-                result.append(symbolList[symbol])
-            else:
-                if symbol == "&":
-                    LHS = result.pop(0)
-                    RHS = result.pop(0)
-                    result.append(LHS and RHS)
-                elif symbol == "=>":
-                    LHS = result.pop(0)
-                    RHS = result.pop(0)
-                    result.append(not LHS or RHS)
-                elif symbol == "~":
-                    result.append(not result.pop(0))
-                elif symbol == "<=>":
-                    LHS = result.pop(0)
-                    RHS = result.pop(0)
-                    result.append(LHS == RHS)
-                elif symbol == "||":
-                    LHS = result.pop(0)
-                    RHS = result.pop(0)
-                    result.append(LHS or RHS)
-        return result.pop(0)
 
     
  
