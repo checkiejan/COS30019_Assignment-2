@@ -3,12 +3,14 @@ import re
 class KB:
     def __init__(self,lst):
         self.sentences = []
+        self.strings = []
         self.symbols = {}
         for s in lst:
             self.addSentence(s)
     
     def addSentence(self, string):
-        if string not in self.sentences:
+        if string not in self.strings:
+            self.strings.append(string)
             sentence = Sentence(string)
             lst = re.findall("[a-zA-Z0-9]+", string)
             self.sentences.append(sentence)

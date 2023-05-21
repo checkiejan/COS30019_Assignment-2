@@ -24,13 +24,13 @@ class Sentence:
         self.operators = {"&": And, "=>": Imply ,"<=>": Bicondition,"~": Not,"||": Or}
         self.sentence = []
         
-        self.generic = False
+        self.generic = True
         if self.generic:
             self.createGeneric(string)
         else:
             self.create(string)
         self.count = 0
-
+        
         
     def containSymbol(self,symbol):
         s = PropositionalSymbol(symbol)

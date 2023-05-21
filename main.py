@@ -16,10 +16,8 @@ with open(sys.argv[2],"r") as f:
     tracks = f.readline()
     tracks = tracks.strip("[\n] ")[:-1].strip().split(";")
     for i in range(len(tracks)):
-        tracks[i] = tracks[i].strip()
-        
+        tracks[i] = tracks[i].replace(" ", "")
     kb = KB(tracks)
-    
     track = f.readline().strip("[\n]")
     track = f.readline().strip("[\n]")
     query = Sentence(track)
