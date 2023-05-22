@@ -1,4 +1,4 @@
 TELL
-l => V;V & W => V;W & W & W => F;W => F;V & V & l => l;W => l;l & V & F => F;V => V;F & V & W => W;V & l & W => W;F & W & W => l;W & W => W;l & W => l;V & W => F;V & F => V;W & W & W => W;F & F => F;W => W;F;W;V;
+m => Z;m & m & m => m;o & o => m;o & o & o => o;Z & Y & Y => m;m & o & Z => Y;o & Y & Y => Z;m & Y => o;Y & o & m => Y;Z & Z => o;m;o;Z;
 ASK
-l
+Y

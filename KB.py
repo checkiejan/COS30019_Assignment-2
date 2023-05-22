@@ -5,8 +5,9 @@ class KB:
         self.sentences = []
         self.strings = []
         self.symbols = {}
-        for s in lst:
-            self.addSentence(s)
+        if not (len(lst) == 1 and lst[0] ==""):
+            for s in lst:
+                self.addSentence(s)
     
     def addSentence(self, string):
         if string not in self.strings:

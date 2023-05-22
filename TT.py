@@ -4,7 +4,7 @@ class TT:
     def __init__(self) -> None:
         self.output = ""
         self.count = 0
-        self.check = 0
+        self.check = None
 
     def getOutput(self):
         return self.output
@@ -18,15 +18,17 @@ class TT:
             lst[x] = False
         symbols = list(lst.keys())
         self.TTCheckAll(kb,query,symbols,{})
-        if self.check == "NO":
+        if self.count == 0 or self.check == "NO":
             self.output = "NO"
         else:
             self.output = f"YES: {self.count}"
         
     def TTCheckAll(self,kb, query, symbols, model):
+       
         if self.output == "NO":
             return
         if len(symbols) == 0:
+            
             if kb.PLTrue(model):
                 query.setValue(model)
                 if query.result():

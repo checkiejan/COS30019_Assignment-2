@@ -159,7 +159,6 @@ class Sentence:
             temp = operator_stack.pop()
             lst.append(temp)
             output_queue.append(temp)
-        
         self.lst = lst
             
     def evaluate_rpn(self,expression):
