@@ -147,13 +147,13 @@ variables = {"a": True, "c": False, "d":True,"b":True}
 # {'a': True, 'c': True, 'd': False, 'b': False, 'f': False, 'g': True},
 # {'a': True, 'c': True, 'd': False, 'b': False, 'f': False, 'g': False}
 # ]
-from KB import KB
-sentence4 = "m||((A=>~m)&a)&(a=>a)&m&((~A=>~A)=>a)"
-sentence = Sentence(sentence4)
-print(sentence.lst)
-sentence.setValue({"A":True,"m":False,"a":True })
-print(sentence.result())
-print(evaluate_sentence(sentence4,{"A":True,"m":False,"a":True }))
+# from KB import KB
+# sentence4 = "m||((A=>~m)&a)&(a=>a)&m&((~A=>~A)=>a)"
+# sentence = Sentence(sentence4)
+# print(sentence.lst)
+# sentence.setValue({"A":True,"m":False,"a":True })
+# print(sentence.result())
+# print(evaluate_sentence(sentence4,{"A":True,"m":False,"a":True }))
 # with open("error.txt","r") as f: 
 #     track = f.readline().strip("[\n]")
 #     tracks = f.readline()
@@ -173,11 +173,11 @@ print(evaluate_sentence(sentence4,{"A":True,"m":False,"a":True }))
 #     print(sentence.result())
 
 
-# import sympy 
-# import random
-# from sympy.parsing.sympy_parser import parse_expr
-# exp = parse_expr("m|((A>>~m)&a)&(a>>a)&m&((~A>>~A)>>a)")
-# query = parse_expr("a")
-# print(1,type(query))
-# result = sympy.logic.inference.entails(query,exp)
-# print(exp,result)
+import sympy 
+import random
+from sympy.parsing.sympy_parser import parse_expr
+exp = parse_expr("(a & b) | c")
+query = parse_expr("a")
+print(1,type(query))
+result = sympy.logic.inference.entails(query,exp)
+print(exp)

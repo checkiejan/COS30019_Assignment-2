@@ -1,9 +1,9 @@
 class PropositionalSymbol:
     def __init__(self,character):
-        self.character = character
-        self.value = False
+        self.character = character #store the character
+        self.value = False #value for the character
 
-    def getValue(self):
+    def getValue(self): #value of the symbol
         return self.value
     
     def setValue(self, value):
