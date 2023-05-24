@@ -20,6 +20,7 @@ class WSAT:
                     query.setValue(randomModel)
                     if query.result():
                         self.output = "YES "+ str(i)
+                        return
                     else:
                         self.output = "NO"
                         return
