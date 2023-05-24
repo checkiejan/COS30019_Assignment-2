@@ -1,12 +1,12 @@
 import re
 from sentence import *
-string ="(a <=> (c => ~d))"
-print(re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", string))
-# sentence = Sentence(string)
-# print(sentence.lst)
-# sentence.setValue({"a": True})
-operators = {"&": And, "=>": Imply ,"<=>": Bicondition,"~": Not,"||": Or}
-lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", string)
+# string ="(a <=> (c => ~d))"
+# print(re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", string))
+# # sentence = Sentence(string)
+# # print(sentence.lst)
+# # sentence.setValue({"a": True})
+# operators = {"&": And, "=>": Imply ,"<=>": Bicondition,"~": Not,"||": Or}
+# lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", string)
 # visited = []
 # i = 0
 # while i < len(lst):
@@ -133,24 +133,40 @@ variables = {"a": True, "c": False, "d":True,"b":True}
 # sentence3 = "A => B"
 # result3 = evaluate_sentence(sentence3, variables)
 # print(sentence3, "=", result3)
-model = [
-{'a': True, 'c': True, 'd': True, 'b': True, 'f': True, 'g': True},
-{'a': True, 'c': True, 'd': True, 'b': True, 'f': False, 'g': True},
-{'a': True, 'c': True, 'd': True, 'b': True, 'f': False, 'g': False},
-{'a': True, 'c': True, 'd': True, 'b': False, 'f': True, 'g': True},
-{'a': True, 'c': True, 'd': True, 'b': False, 'f': False, 'g': True},
-{'a': True, 'c': True, 'd': True, 'b': False, 'f': False, 'g': False},
-{'a': True, 'c': True, 'd': False, 'b': True, 'f': True, 'g': True},
-{'a': True, 'c': True, 'd': False, 'b': True, 'f': False, 'g': True},
-{'a': True, 'c': True, 'd': False, 'b': True, 'f': False, 'g': False},
-{'a': True, 'c': True, 'd': False, 'b': False, 'f': True, 'g': True},
-{'a': True, 'c': True, 'd': False, 'b': False, 'f': False, 'g': True},
-{'a': True, 'c': True, 'd': False, 'b': False, 'f': False, 'g': False}
-]
-sentence4 = "~d & (~g => ~f)"
-sentence = Sentence(sentence4)
-print(sentence.lst)
-print(evaluate_sentence(sentence4,model[0]))
+# model = [
+# {'a': True, 'c': True, 'd': True, 'b': True, 'f': True, 'g': True},
+# {'a': True, 'c': True, 'd': True, 'b': True, 'f': False, 'g': True},
+# {'a': True, 'c': True, 'd': True, 'b': True, 'f': False, 'g': False},
+# {'a': True, 'c': True, 'd': True, 'b': False, 'f': True, 'g': True},
+# {'a': True, 'c': True, 'd': True, 'b': False, 'f': False, 'g': True},
+# {'a': True, 'c': True, 'd': True, 'b': False, 'f': False, 'g': False},
+# {'a': True, 'c': True, 'd': False, 'b': True, 'f': True, 'g': True},
+# {'a': True, 'c': True, 'd': False, 'b': True, 'f': False, 'g': True},
+# {'a': True, 'c': True, 'd': False, 'b': True, 'f': False, 'g': False},
+# {'a': True, 'c': True, 'd': False, 'b': False, 'f': True, 'g': True},
+# {'a': True, 'c': True, 'd': False, 'b': False, 'f': False, 'g': True},
+# {'a': True, 'c': True, 'd': False, 'b': False, 'f': False, 'g': False}
+# ]
+# from KB import KB
+# sentence4 = "m||((A=>~m)&a)&(a=>a)&m&((~A=>~A)=>a)"
+# sentence = Sentence(sentence4)
+# print(sentence.lst)
+# sentence.setValue({"A":True,"m":False,"a":True })
+# print(sentence.result())
+# print(evaluate_sentence(sentence4,{"A":True,"m":False,"a":True }))
+# with open("error.txt","r") as f: 
+#     track = f.readline().strip("[\n]")
+#     tracks = f.readline()
+#     tracks = tracks.strip("[\n] ")[:-1].strip().split(";")
+#     for i in range(len(tracks)):
+#         tracks[i] = tracks[i].replace(" ", "")
+#     print(tracks)
+#     kb = KB(tracks)
+#     track = f.readline().strip("[\n]")
+#     track = f.readline().strip("[\n]")
+#     query = Sentence(track)
+# print(kb.PLTrue({"A":True,"m":False,"a":True }))
+# print(tracks[9])
 # for x in model:
 #     sentence.setValue(x)
 #     #print(evaluate_sentence(sentence4,x))
@@ -160,5 +176,8 @@ print(evaluate_sentence(sentence4,model[0]))
 import sympy 
 import random
 from sympy.parsing.sympy_parser import parse_expr
-exp = parse_expr("~f = g")
+exp = parse_expr("(a & b) | c")
+query = parse_expr("a")
+print(1,type(query))
+result = sympy.logic.inference.entails(query,exp)
 print(exp)

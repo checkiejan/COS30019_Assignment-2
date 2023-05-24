@@ -7,10 +7,8 @@ class WSAT:
 
     # This is the main function that performs the WalkSAT algorithm
     def infer(self, kb, query):
-        # User input for the maximum number of iterations
-        maxIteration = int(input("Enter the max iteration"))
-
-        # Generate the relevance count for all the symbols in the knowledge base sentences
+        #maxIteration = int(input("Enter the max iteration"))
+        maxIteration = 400
         relevanceCount = self.relevanceCount(kb.sentences)
 
         # Create a random model using the symbols in the knowledge base
@@ -21,11 +19,13 @@ class WSAT:
         for i in range(maxIteration):
             # If the random model satisfies all sentences in the knowledge base
             if (kb.PLTrue(randomModel)):
-                # Check if the query is also satisfied by the random model
-                query.setValue(randomModel)
-                if query.result():
-                    print(randomModel)
-                    self.output = "YES "+ str(i)
+                    query.setValue(randomModel)
+                    if query.result():
+                        self.output = "YES "+ str(i)
+                        return
+                    else:
+                        self.output = "NO"
+                        return
 
 
             # Get a sentence from the knowledge base that is not satisfied by the random model

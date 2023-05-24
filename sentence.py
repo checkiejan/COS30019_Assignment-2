@@ -1,140 +1,74 @@
 from PropositionalSymbol import PropositionalSymbol
 import re
 
-def Or(a,b):
-    return a or b
-def And(a,b):
-    return a and b
-def Imply(a,b):
-    if a and not b:
-        return False
-    return True
-def Not(a):
-    return not a
-
-def Bicondition(a,b):
-    if a == b:
-        return True
-    return False
 
 class Sentence:
     def __init__(self, string):
         self.lst = None
         self.symbols = []
-        self.operators = {"&": And, "=>": Imply ,"<=>": Bicondition,"~": Not,"||": Or}
-        self.sentence = []
-        
-        self.generic = True
-        if self.generic:
-            self.createGeneric(string)
-        else:
-            self.create(string)
+        self.sentence = []  
+        self.createSentence(string)
         self.count = 0
         
         
-    def containSymbol(self,symbol):
+    def containSymbol(self,symbol): #check if the sentence contains a symbol
         s = PropositionalSymbol(symbol)
         for x in self.symbols:
             if x == s:
                 return True
         return False
     
-    def getSymbol(self,symbol):
+    def getSymbol(self,symbol): #get the symbol from the sentence
         s = PropositionalSymbol(symbol)
         for x in self.symbols:
             if x == s:
                 return x
         return None
         
-    def create(self,string):
-        lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|=>", string)
-        self.lst = lst
-        
-        i = 0
-        while  i < len(lst):
-            if lst[i] in self.operators:
-                temp1 = lst[i]
-                lst[i] = lst[i+1]       
-                lst[i+1] = temp1
-                i +=1 
-            i += 1
-        for x in lst:
-            if(x in self.operators.keys()):   
-                self.sentence.append(x)
-            else:
-                temp = PropositionalSymbol(x)
-                if not self.containSymbol(x):   
-                    self.symbols.append(temp)
-                    self.sentence.append(temp)
-                else:
-                    self.sentence.append(self.getSymbol(x))
                     
-    def createGeneric(self,string):
-        lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", string)
+    def createSentence(self,string):
+        lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", string) #separate the sentence into a list of symbols and operator
         self.lst = lst
-        self.posfixEval()
+        self.posfixEval() #transform sentence into a postfix form
         symbols = re.findall("[a-zA-Z0-9]+", string)
         set1 = set(symbols)
-        for x in set1:
+        for x in set1: #create a set of symbols for the sentence
             temp = PropositionalSymbol(x)
             self.symbols.append(temp)
         
         
 
-    def setValue(self,model):
-        for k,v in model.items():
+    def setValue(self,model): #set value for symbols in the sentence
+        for k,v in model.items(): 
             temp = self.getSymbol(k)
             if temp is not None:
                 temp.setValue(v)
 
-    def setCount(self):
+    def setCount(self): #count for horn clause the number of symbols before the imply operator
          for symbol in range(len(self.lst)-2):
                 if re.search("[a-zA-Z0-9]+", self.lst[symbol]) != None:
                     self.count += 1
-    
-    def getValue(self):
-        return self.result()
-    
-    def result(self):
-        if self.generic:
-            return self.resultGeneric()
-        if len(self.sentence) == 1:
-            return  self.symbols[0].getValue()
-        else:
-            back = self.sentence[0].getValue()
-            index = 0
-            result = True
-            while index < len(self.sentence):
-                result = self.sentence[index].getValue()
-            
-                if  index + 1 < len(self.sentence) and self.sentence[index+1] not in self.symbols:
-                    func =  self.operators[self.sentence[index+1]]
-                    result = func(back, result)
-                    back = result
-                    index +=1
-                index +=1
-            return back
-    def resultGeneric(self):
+               
+    def result(self): # return the result of the sentence
         return self.evaluate_sentence()
     
-    def getSymbolValue(self,symbol):
+    def getSymbolValue(self,symbol): #get value of the symbol in the sentence
         result = self.getSymbol(symbol)
         if result is not None:
             return result.getValue()
         
-    def evaluate_sentence(self):
+    def evaluate_sentence(self): #evaluate the sentence with the stored value of each symbols
         output_queue = [] 
         for token in self.lst:
-            if token not in ["~", "&", "||", "=>", "<=>"]:
+            if token not in ["~", "&", "||", "=>", "<=>"]: #if token is a symbol then get its value
                 output_queue.append(self.getSymbolValue(token))
             else:
                 output_queue.append(token)
-        return self.evaluate_rpn(output_queue)
+        return self.evaluate_exp(output_queue)
 
-    def posfixEval(self):
-        output_queue = []  # Output queue for the Reverse Polish Notation (RPN)
+    def posfixEval(self): #Shunting Yard algorithm to transform into postfix 
         operator_stack = []  # Stack to store operators
-        lst = []
+        lst = [] #list to store the sentence
         precedence = {"~": 3, "&": 2, "||": 1, "=>": 0, "<=>": 0}
 
         for token in self.lst:
@@ -142,7 +76,6 @@ class Sentence:
                 while operator_stack and operator_stack[-1] != "(" and precedence[token] <= precedence[operator_stack[-1]]:
                     temp = operator_stack.pop()
                     lst.append(temp)
-                    output_queue.append(temp)
                 operator_stack.append(token)
             elif token == "(":
                 operator_stack.append(token)
@@ -150,7 +83,6 @@ class Sentence:
                 while operator_stack and operator_stack[-1] != "(":
                     temp = operator_stack.pop()
                     lst.append(temp)
-                    output_queue.append(temp)
                 operator_stack.pop()  # Remove "(" from stack
             else:
                 lst.append(token)
@@ -158,11 +90,9 @@ class Sentence:
         while operator_stack:
             temp = operator_stack.pop()
             lst.append(temp)
-            output_queue.append(temp)
-        
-        self.lst = lst
+        self.lst = lst #assign the list to the sentence list
             
-    def evaluate_rpn(self,expression):
+    def evaluate_exp(self,expression): #evaluate the sentence based on already processed expression
         stack = []
         for token in expression:
             if token in ["~", "&", "||", "=>", "<=>"]:

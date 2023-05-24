@@ -21,21 +21,6 @@ with open(sys.argv[2],"r") as f:
     track = f.readline().strip("[\n]")
     track = f.readline().strip("[\n]")
     query = Sentence(track)
-    
-lst = [
-    {'a': True, 'b': True, 'p3': True, 'p2': True, 'c': True, 'p1': True},
-    {'a': True, 'b': False, 'p3': True, 'p2': True, 'c': True, 'p1': True}
-]
-#TT.infer(kb,query)
-#print(kb.PLTrue({'a': True, 'b': True, 'p3': True, 'p2': True, 'c': True, 'p1': True}))
-#print(TT.getOutput())
-
-# FC.infer(kb, query)
-# TT.TTEntail(kb,query)
-
-# FC.infer(kb, query)
-# print(FC.getOutput())
-
 
 
 methods = {"tt":TT,"fc": FC,"bc":BC, "wsat":WSAT}
