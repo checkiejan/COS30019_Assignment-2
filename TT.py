@@ -18,7 +18,7 @@ class TT:
             lst[x] = False
         symbols = list(lst.keys()) #just get the unique set of symbols in both query and knowledge base
         self.TTCheckAll(kb,query,symbols,{}) #check the entailment
-        if self.count == 0 or self.check == "NO": #if detect no case of entailment or a case that does not entail then the output is NO 
+        if  self.check == "NO": #if detect no case of entailment or a case that does not entail then the output is NO 
             self.output = "NO"
         else:
             self.output = f"YES: {self.count}"
