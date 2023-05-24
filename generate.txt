@@ -1,4 +1,4 @@
 TELL
-h => m;R & u & e => u;C & h & e & m & e & h & M => h;M & M & u & k & d & C & u => h;M => C;u & C => e;e & k & C & m => m;h & C & h & e => m;e & C & k & u & C & h & R & M & h & u => e;d => h;d & u => k;e & M & e => R;R & d & k & e & R & M & M & u => R;u & m & k & k => k;m & k & C & e & R & u & d => u;u;e;R;m;h;k;C;d;
+A & n & x & i & i => x;i & o & A => o;x & P & j & A => o;i & i => A;A & i & i & n => A;n & x & A & j & P => P;x => n;x & j & n & o & P & j => x;A => x;o & o & i & j & P => i;A & A & x & P => i;A => A;o & i => i;x & i => o;j;P;x;n;o;i;
 ASK
-M
+A

@@ -7,7 +7,8 @@ class WSAT:
 
 
     def infer(self, kb, query):
-        maxIteration = int(input("Enter the max iteration"))
+        #maxIteration = int(input("Enter the max iteration"))
+        maxIteration = 700
         relevanceCount = self.relevanceCount(kb.sentences)
         randomModel = self.randomModel(kb.symbols)
         
@@ -18,8 +19,10 @@ class WSAT:
             if (kb.PLTrue(randomModel)):
                     query.setValue(randomModel)
                     if query.result():
-                        print(randomModel)
                         self.output = "YES "+ str(i)
+                    else:
+                        self.output = "NO"
+                        return
 
             
             randomSentence = self.getRandomFalseSentence(randomModel, kb.sentences)
