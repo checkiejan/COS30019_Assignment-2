@@ -5,30 +5,40 @@ class WSAT:
     def __init__(self):
         self.output = "NO"
 
-
+    # This is the main function that performs the WalkSAT algorithm
     def infer(self, kb, query):
+        # User input for the maximum number of iterations
         maxIteration = int(input("Enter the max iteration"))
+
+        # Generate the relevance count for all the symbols in the knowledge base sentences
         relevanceCount = self.relevanceCount(kb.sentences)
+
+        # Create a random model using the symbols in the knowledge base
         randomModel = self.randomModel(kb.symbols)
         
         flipChance = 0.5
 
         for i in range(maxIteration):
-            
+            # If the random model satisfies all sentences in the knowledge base
             if (kb.PLTrue(randomModel)):
-                    query.setValue(randomModel)
-                    if query.result():
-                        print(randomModel)
-                        self.output = "YES "+ str(i)
+                # Check if the query is also satisfied by the random model
+                query.setValue(randomModel)
+                if query.result():
+                    print(randomModel)
+                    self.output = "YES "+ str(i)
 
-            
+
+            # Get a sentence from the knowledge base that is not satisfied by the random model
             randomSentence = self.getRandomFalseSentence(randomModel, kb.sentences)
             if randomSentence != None:
+                # Flip a symbol in the random model with a chance of flipChance
                 if (random.random() > flipChance):
                     self.flipRandomSymbol(randomSentence, randomModel)
+                # Or flip the most relevant symbol
                 else:
                     self.flipSymbolByRelevance(randomSentence, randomModel, relevanceCount)
             else:
+                # If all sentences are satisfied, generate a new random model
                 randomModel = self.randomModel(randomModel)
 
                  
