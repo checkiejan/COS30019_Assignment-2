@@ -19,20 +19,20 @@ def createHornTest():
     while numberOfSymbols > numberOfClause:
         numberOfSymbols= random.randint(3,10)
     symbols = set()
-    for i in range(numberOfSymbols):
+    for i in range(numberOfSymbols): #get the unique list of symbols
         x= random.choice(string.ascii_letters)
         while x=="":
             x= random.choice(string.ascii_letters)
         symbols.add(x)
     symbols = list(symbols)
     
-    statement = []
+    statement = [] #statement is to store the list of facts
     query = random.choice(symbols)
-    statement.append(query)
+    statement.append(query) #store query into statement to avoid the teset where query is a known fact
     for i in range(numberOfClause):
         clause = random.random()
         if clause > 0.6: #statement or fact more than 0.6 is fact
-            if len(statement) == len(symbols):
+            if len(statement) == len(symbols): #skip if the first sentence
                 continue
             temp = random.choice(symbols)
             while temp in statement: #make sure no repeated statement
@@ -40,7 +40,7 @@ def createHornTest():
             clauses.append(temp)
             statement.append(temp)
         else:
-            depth = random.randint(2,numberOfSymbols)
+            depth = random.randint(2,numberOfSymbols) #number of the symbols before the imply operator
             s = []
             for x in range(depth):
                 s.append(random.choice(symbols))
@@ -48,11 +48,11 @@ def createHornTest():
             sentence = " & ".join(s[:-1])
             sentence += f" => {s[-1]}"
             clauses.insert(0,sentence)
-    kb = ";".join(clauses) 
+    kb = ";".join(clauses)  #join to make the sentence
     with open("generate.txt", 'w') as f:
             f.write(f"TELL\n{kb};\nASK\n{query}")
             
-def joinClause(lst):
+def joinClause(lst): #join different subclause for generic sentence
     operator = ["&", "||"]
     temp = ""
     for i in range(len(lst)):
@@ -62,22 +62,22 @@ def joinClause(lst):
             temp += lst[i]
     return temp
 
-def createGenericSentence(symbols,operators = ["<=>","=>","&","||"]):
+def createGenericSentence(symbols,operators = ["<=>","=>","&","||"]): #create a random generic sentence
     clause = random.random()
     if clause > 0.97: #statement or fact more than this probability is fact
         temp = random.choice(symbols)
         
         chance_negation = random.random()
-        if chance_negation > 0.6:
+        if chance_negation > 0.6: #negation for sentence
             temp = "~"+temp
         return temp
     else:
-        number_subclause = random.randint(2,6)
+        number_subclause = random.randint(2,6) 
         sub_lst = []
         for j in range(number_subclause):
             chance_parathesis = random.random()
             temp = ""
-            if chance_parathesis > 0.6:    
+            if chance_parathesis > 0.6:  #chance of containing parathesis
                 temp += "("
                 chance_clause = random.random()
                 if chance_clause >0.7:
@@ -97,9 +97,9 @@ def createGenericSentence(symbols,operators = ["<=>","=>","&","||"]):
                     if chance_negation_a > 0.6:
                         a = "~"+a
                     temp += "a"
-                temp += random.choice(operators)
+                temp += random.choice(operators) #join between 2 subclause with an operator
                 chance_clause = random.random()
-                if chance_clause >0.9:
+                if chance_clause >0.9: # limit the chance of being another clause
                     temp+="("
                     a = random.choice(symbols)
                     chance_negation_a = random.random()
@@ -118,8 +118,8 @@ def createGenericSentence(symbols,operators = ["<=>","=>","&","||"]):
                     temp += "a"
                     temp +=")"
                 # temp += ")"
-            else:
-                a = random.choice(symbols)
+            else: #or else should be a symbol
+                a = random.choice(symbols) 
                 chance_negation = random.random()
                 if chance_negation > 0.6:
                     a = "~"+a
@@ -129,8 +129,8 @@ def createGenericSentence(symbols,operators = ["<=>","=>","&","||"]):
             return sentence
             
 def createGenericTest():
-    numberOfClause = random.randint(5,40)
-    operators = ["<=>","=>","&","||"]
+    numberOfClause = random.randint(5,40) # number of sentences in the knowledge base
+    operators = ["<=>","=>","&","||"] #operator allowed
     clauses = []
     numberOfSymbols= random.randint(3,20)
     while numberOfSymbols > numberOfClause:
@@ -219,7 +219,7 @@ def createGenericTest():
     with open("generate.txt", 'w') as f:
             f.write(f"TELL\n{kb};\nASK\n{query}")
 
-def postfix_to_infix(postfix_expr):
+def postfix_to_infix(postfix_expr): #function to transform posfix to infix function
     stack = []
 
     for symbol in postfix_expr:
@@ -240,7 +240,7 @@ def postfix_to_infix(postfix_expr):
             new_expr = f"({operand1} {symbol} {operand2})"
             stack.append(new_expr)
         # If the symbol is a biconditional operator (<=>), replace it with a combination of & and | operators
-        elif symbol == "<=>":
+        elif symbol == "<=>": #sympy does not have operator <=>
             operand2 = stack.pop()
             operand1 = stack.pop()
             new_expr = f"(({operand1} & {operand2}) | (~{operand1} & ~{operand2}))"
@@ -280,9 +280,9 @@ def processHornInput(tracks):
     result = tracks.copy()
     for i in range(len(result)):
         temp = result[i]
-        if re.search("=>", temp):
+        if re.search("=>", temp): #sympy use >> instead of =>
             temp = temp.replace("=>",">>")
-            if re.search("&", temp):
+            if re.search("&", temp): #append parenthesis for the sentence otherwise sympy will make this false
                 temp = temp[:0] + '(' + temp[0:]
                 index = temp.find(">>")
                 temp = temp[:index] + ')' + temp[index:]
@@ -294,16 +294,16 @@ def processGenericInput(tracks, query):
         temp = result[i]
         input = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", temp)
         for j in range(len(input)):
-            if input[j] == "=>":
+            if input[j] == "=>": #sympy use >> instead of =>
                 input[j] = ">>"
-            if input[j] == "||":
+            if input[j] == "||": #sympy use | instead of ||
                 input[j] = "|"
         
         lst = posfixEval(input)
        
-        temp = postfix_to_infix(lst)
+        temp = postfix_to_infix(lst) #sympy does not have <=> in as a standalone operator so convert <=> in a different way
         result[i] = temp
-    temp = query
+    temp = query#process the query like sentences in the knowledge base
     input = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", temp)
     for j in range(len(input)):
         if input[j] == "=>":
@@ -315,7 +315,7 @@ def processGenericInput(tracks, query):
     query = postfix_to_infix(lst)
     return result,query
         
-def writeError(track,query):
+def writeError(track,query): #when a test fail write the scenerio to a file 
     kb = ";".join(track) 
     with open("error.txt", 'w') as f:
             f.write(f"TELL\n{kb};\nASK\n{query.lst[0]}")
@@ -340,12 +340,12 @@ class LogicTest(unittest.TestCase):
         tracks = None
         query = None
         while not res:
-            try:
+            try: #if sympy cannot parse this case then create another one
                 createHornTest()
                 tracks,query = readKB()
                 tracks_processed = processHornInput(tracks)
                 self.track = tracks
-                Set = set()
+                Set = set() #get unique list of sentence
                 for x in tracks_processed:
                     exp = parse_expr(x)
                     Set.add(exp)
@@ -369,11 +369,9 @@ class LogicTest(unittest.TestCase):
                 tracks_processed,query_gen = processGenericInput(tracks,query)
                 self.track = tracks
                 Set = set()
-                t =0
-                for x in tracks_processed:
+                for x in tracks_processed: #get unique list of sentence
                     exp = parse_expr(x)
                     Set.add(exp)
-                    t+=1
                 query_processed = parse_expr(query_gen)
                 self.result = sympy.logic.inference.entails(query_processed,Set)
                 res = True
@@ -396,7 +394,7 @@ class LogicTest(unittest.TestCase):
         
     def test_horn_truth_table(self):
         test = True
-        for i in range(50):
+        for i in range(50): #number of test case
             self.creatNewCase()
             self.TT = TT()
             self.TT.infer(self.KB, self.query)
@@ -404,7 +402,7 @@ class LogicTest(unittest.TestCase):
             flag = False
             if "YES" in result:
                 flag = True
-            if(flag != self.result):
+            if(flag != self.result): #whenever fail, break the test
                 test = False
                 print(f"TT fail:{i+1}")
                 print(self.result)
@@ -414,55 +412,53 @@ class LogicTest(unittest.TestCase):
         print()
         self.assertTrue(test)
         
-    # def test_generic_truth_table(self):
-    #     test = True
-    #     for i in range(1000):
-    #         self.creatNewGenericCase()
-    #         self.TT = TT()
-    #         self.TT.infer(self.KB, self.query)
-    #         result = self.TT.output
-    #         flag = False
-    #         if "YES" in result:
-    #             flag = True
-    #         if(flag != self.result):
-    #             test = False
-    #             print(f"TT fail:{i+1}")
-    #             print(self.result, flag)
-    #             writeError(self.track,self.query)
-    #             break
-    #         print(f"Generic TT pass:{i+1}")
-    #     print()
-    #     self.assertTrue(test)
+    def test_generic_truth_table(self):
+        test = True
+        for i in range(1000): #number of test case
+            self.creatNewGenericCase()
+            self.TT = TT()
+            self.TT.infer(self.KB, self.query)
+            result = self.TT.output
+            flag = False
+            if "YES" in result:
+                flag = True
+            if(flag != self.result): #whenever fail, break the test
+                test = False
+                print(f"TT fail:{i+1}")
+                print(self.result, flag)
+                writeError(self.track,self.query)
+                break
+            print(f"Generic TT pass:{i+1}")
+        print()
+        self.assertTrue(test)
         
-    # def test_generic_WSAT(self):
-    #     test = True
-    #     number_fail = 0
-    #     number_pass = 0
-    #     for i in range(1000):
-    #         self.creatNewGenericCase()
-    #         self.WSAT = WSAT()
-    #         self.WSAT.infer(self.KB, self.query)
-    #         result = self.WSAT.output
-    #         flag = False
-    #         if "YES" in result:
-    #             flag = True
-    #         if(flag != self.result):
-    #             number_fail += 1
-    #             print(f"Generic WSAT fail:{i+1}")
-    #         else:
-    #             print(f"Generic WSAT pass:{i+1}")
-    #             number_pass += 1
+    def test_generic_WSAT(self):
+        number_fail = 0
+        number_pass = 0
+        for i in range(1000): #number of test case
+            self.creatNewGenericCase()
+            self.WSAT = WSAT()
+            self.WSAT.infer(self.KB, self.query)
+            result = self.WSAT.output
+            flag = False
+            if "YES" in result:
+                flag = True
+            if(flag != self.result):
+                number_fail += 1
+                print(f"Generic WSAT fail:{i+1}")
+            else:
+                print(f"Generic WSAT pass:{i+1}")
+                number_pass += 1
                 
-    #     print(f"FAIL:{number_fail}, PASS:{number_pass}")
-    #     self.assertTrue(True)
+        print(f"FAIL:{number_fail}, PASS:{number_pass}")
+        self.assertTrue(True)
         
     
         
     def test_horn_WSAT(self):
-        test = True
         number_fail = 0
         number_pass = 0
-        for i in range(100):
+        for i in range(100): #number of test case
             self.creatNewCase()
             self.WSAT = WSAT()
             self.WSAT.infer(self.KB, self.query)
@@ -482,7 +478,7 @@ class LogicTest(unittest.TestCase):
          
     def test_backward_chaining(self):
         test = True
-        for i in range(50):
+        for i in range(1000): #number of test case
             self.creatNewCase()
             self.BC = BC()
             self.BC.infer(self.KB, self.query)
@@ -490,7 +486,7 @@ class LogicTest(unittest.TestCase):
             flag = False
             if "YES" in result:
                 flag = True
-            if(flag != self.result):
+            if(flag != self.result): #whenever fail, break the test
                 test = False
                 writeError(self.track,self.query)
                 print(f"BC fail:{i+1}")
@@ -501,7 +497,7 @@ class LogicTest(unittest.TestCase):
         
     def test_forward_chaining(self):
         test = True
-        for i in range(50):
+        for i in range(1000):
             self.creatNewCase()
             self.FC = FC()
             self.FC.infer(self.KB, self.query)
@@ -509,7 +505,7 @@ class LogicTest(unittest.TestCase):
             flag = False
             if "YES" in result:
                 flag = True
-            if(flag != self.result):
+            if(flag != self.result): #whenever fail, break the test
                 writeError(self.track,self.query)
                 print(f"FC fail:{i+1}")
                 test = False
@@ -520,14 +516,4 @@ class LogicTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-# createGenericTest()
-# tracks,query = readKB()
-# tracks_processed = processGenericInput(tracks)
-# track = tracks
-# Set = set()
-# for x in tracks_processed:
-#     exp = parse_expr(x)
-#     Set.add(exp)
-# query_processed = parse_expr(query)
-# result = sympy.logic.inference.entails(query_processed,Set)
-# print(result)
+
