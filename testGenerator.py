@@ -117,7 +117,6 @@ def createGenericSentence(symbols,operators = ["<=>","=>","&","||"]): #create a 
                         a = "~"+a
                     temp += "a"
                     temp +=")"
-                # temp += ")"
             else: #or else should be a symbol
                 a = random.choice(symbols) 
                 chance_negation = random.random()
