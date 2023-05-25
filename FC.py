@@ -22,8 +22,7 @@ class FC:
         for sentence in kb.sentences:
             sentenceCount[sentence] = sentence.count
            
-            #print(sentence.lst, sentenceCount[sentence])
-            
+        # Check if the query is already a known fact
         if query.lst[0] in inferredSymbol:
             self.output = "YES: " + query.lst[0]
             return
@@ -50,6 +49,7 @@ class FC:
                                 sentenceCount[sentence] -= 1
                                 # append the symbol when the count reaches 0
                                 if sentenceCount[sentence]  <= 0:
+                                    # Check if the conclusion of the sentence contain the query
                                     if sentence.lst[len(sentence.lst) - 2] == query.lst[0]:
                                         self.output = "YES: " + self.output + sentence.lst[len(sentence.lst) - 2]
                                         return

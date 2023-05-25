@@ -1,4 +1,0 @@
-Tell: 
-p1 => c; c & d=> p2; p3 => p1; p2 => p3; c; d;
-Ask: 
-p1

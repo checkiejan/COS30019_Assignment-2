@@ -46,6 +46,7 @@ class WSAT:
     def randomModel(self, kbSymbols):
         symbolList = {}
 
+        # Go through each symbol and flip the symbol 
         for symbol in kbSymbols.keys():
             symbolList[symbol] = random.choice([True, False])
         return symbolList
@@ -53,10 +54,12 @@ class WSAT:
     def relevanceCount(self, sentenceList):
         relevanceCount = {}
         for sentence in sentenceList:
+            # Find sentence that are not known facts
             if (len(sentence.lst) > 1):
                 for symbol in range(len(sentence.lst)):
                     currentSymbol = sentence.lst[symbol]
                     if re.search("[a-zA-Z0-9]+", currentSymbol) != None:
+                        # set the relance count for the symbol
                         if currentSymbol in relevanceCount:
                             relevanceCount[currentSymbol]+=1
                         else:
@@ -66,14 +69,17 @@ class WSAT:
     
     def getRandomFalseSentence(self, randomModel, sentenceList):
         hasFalseClause = False
+        # Check if Knowledge base contain false clauses
         for sentence in sentenceList:
             sentence.setValue(randomModel)
             if sentence.result() == False:
                 hasFalseClause = True
                 break
+        # Return none if there is no false clause in the knowledge base
         if hasFalseClause == False:
             return None
 
+        # Get a random false clause from the knowledge base
         while True:
             randomIndex =random.randint(0, len(sentenceList)-1)
             sentenceList[randomIndex].setValue(randomModel)
@@ -82,8 +88,10 @@ class WSAT:
 
     def flipRandomSymbol(self, sentence, randomModel):
         while True:
+            # Get a random index
             randomIndex = random.randint(0,len(sentence.lst)-1)
             if re.search("[a-zA-Z0-9]+", sentence.lst[randomIndex]) != None:
+                # Flip the symbol in that index
                 randomModel[sentence.lst[randomIndex]] = not randomModel[sentence.lst[randomIndex]]
                 break
 
@@ -92,6 +100,7 @@ class WSAT:
 
         for symbol in sentence.lst:
             if re.search("[a-zA-Z0-9]+", symbol) != None:
+                # if the symbol to flip is none or the relance of teh symbol is higher than the current symbol to flip
                 if symbolToFlip == None or relevanceCount[symbol] > relevanceCount[symbolToFlip]:
                     symbolToFlip = symbol 
 

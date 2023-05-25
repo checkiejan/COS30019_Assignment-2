@@ -1,4 +1,0 @@
-Tell:
-of => May; First => of; the => First; Born => On; Jason => Was; On => the; Was => Born; Jason;
-Ask: 
-May
