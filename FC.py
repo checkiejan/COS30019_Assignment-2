@@ -18,10 +18,16 @@ class FC:
             symbolList[symbol] = False
             if kb.symbols[symbol]:
                 inferredSymbol.append(symbol)
-
         # Initiallize the count for each sentence 
         for sentence in kb.sentences:
             sentenceCount[sentence] = sentence.count
+           
+            #print(sentence.lst, sentenceCount[sentence])
+            
+        if query.lst[0] in inferredSymbol:
+            self.output = "YES: " + query.lst[0]
+            return
+
         
         
         while len(inferredSymbol) > 0:
@@ -30,7 +36,6 @@ class FC:
             if currentSymbol == query.lst[0]:
                 self.output = "YES: " + self.output + currentSymbol
                 return
-            
             if (symbolList[currentSymbol] == False):
                 symbolList[currentSymbol] = True
                 self.output += currentSymbol + ", "
@@ -45,11 +50,9 @@ class FC:
                                 sentenceCount[sentence] -= 1
                                 # append the symbol when the count reaches 0
                                 if sentenceCount[sentence]  <= 0:
-                                    print(sentence.lst)
-                                    print(sentence.lst[len(sentence.lst)-2])
-                                    # if sentence.lst[len(sentence.lst)-2] == query:
-                                    #     self.output = "YES: " + self.output + currentSymbol
-                                    #     return
+                                    if sentence.lst[len(sentence.lst) - 2] == query.lst[0]:
+                                        self.output = "YES: " + self.output + sentence.lst[len(sentence.lst) - 2]
+                                        return
                                     inferredSymbol.append(sentence.lst[len(sentence.lst) - 2])
 
 

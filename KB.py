@@ -17,9 +17,15 @@ class KB:
             self.sentences.append(sentence)
             sentence.setCount() #this one is for horn clause to count the number of symbols before the imply operator
             if len(lst) == 1: #if the sentence is a fact
+                if lst[0] in self.symbols:
+                    # Key already exists, remove it first
+                    self.symbols.pop(lst[0])
                 self.symbols[lst[0]] = True #assign that symbol with true value
             else: #otherwise, every value is false
                 for x in lst:
+                    if x in self.symbols:
+                    # Key already exists, remove it first
+                        self.symbols.pop(x)
                     self.symbols[x] = False
             
 
