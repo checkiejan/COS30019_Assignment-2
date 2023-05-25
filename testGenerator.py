@@ -31,7 +31,7 @@ def createHornTest():
     statement.append(query)
     for i in range(numberOfClause):
         clause = random.random()
-        if clause > 0.6: #statement or fact more than 0.7 is fact
+        if clause > 0.6: #statement or fact more than 0.6 is fact
             if len(statement) == len(symbols):
                 continue
             temp = random.choice(symbols)
