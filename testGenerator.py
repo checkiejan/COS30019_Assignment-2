@@ -13,7 +13,7 @@ from WSAT import WSAT
 from sentence import Sentence
 
 def createHornTest():
-    numberOfClause = random.randint(5,40)
+    numberOfClause = random.randint(5,40)#number of sentence
     clauses = []
     numberOfSymbols= random.randint(3,20)
     while numberOfSymbols > numberOfClause:

@@ -1,4 +1,4 @@
 TELL
-p||C&(a=>a)||~L;L||(a<=>a)||~C&C&(a||a);(a&a)&b||((b<=>~b)<=>a)&~b;((b||p)&a)&~L&(a=>(C||~p));C||b||b;(a<=>a)&L;(a||a)&C&((p<=>C)&a);p;
+X & X & X => k;k => C;C;X;
 ASK
-~L
+y

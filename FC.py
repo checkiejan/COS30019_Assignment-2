@@ -45,6 +45,11 @@ class FC:
                                 sentenceCount[sentence] -= 1
                                 # append the symbol when the count reaches 0
                                 if sentenceCount[sentence]  <= 0:
+                                    print(sentence.lst)
+                                    print(sentence.lst[len(sentence.lst)-2])
+                                    # if sentence.lst[len(sentence.lst)-2] == query:
+                                    #     self.output = "YES: " + self.output + currentSymbol
+                                    #     return
                                     inferredSymbol.append(sentence.lst[len(sentence.lst) - 2])
 
 
