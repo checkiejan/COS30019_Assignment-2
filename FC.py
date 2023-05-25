@@ -31,14 +31,13 @@ class FC:
             # Get the next symbol in the list of true symbols
             
             currentSymbol = inferredSymbol.pop(0)
-
             if currentSymbol == query.lst[0]:
                 self.output = "YES: " + self.output + currentSymbol
                 return
             
             if (symbolList[currentSymbol] == False):
                 symbolList[currentSymbol] = True
-                self.output += currentSymbol + " ,"
+                self.output += currentSymbol + ", "
 
                 # Loop through the sentence in KB to find the symbol
                 for sentence in kb.sentences:

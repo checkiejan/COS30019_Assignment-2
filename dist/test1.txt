@@ -1,0 +1,4 @@
+Tell: 
+a;
+Ask: 
+a || ~a

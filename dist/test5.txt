@@ -1,0 +1,4 @@
+Tell: 
+a => b; b => c; c => d; d => e; e => a; e => f; f => b; f => g; f => h; h;
+Ask: 
+g

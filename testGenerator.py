@@ -414,72 +414,72 @@ class LogicTest(unittest.TestCase):
     #     print()
     #     self.assertTrue(test)
         
-    # def test_generic_truth_table(self):
+    def test_generic_truth_table(self):
+        test = True
+        for i in range(1000):
+            self.creatNewGenericCase()
+            self.TT = TT()
+            self.TT.infer(self.KB, self.query)
+            result = self.TT.output
+            flag = False
+            if "YES" in result:
+                flag = True
+            if(flag != self.result):
+                test = False
+                print(f"TT fail:{i+1}")
+                print(self.result, flag)
+                writeError(self.track,self.query)
+                break
+            print(f"Generic TT pass:{i+1}")
+        print()
+        self.assertTrue(test)
+        
+    # def test_generic_WSAT(self):
     #     test = True
-    #     for i in range(50):
+    #     number_fail = 0
+    #     number_pass = 0
+    #     for i in range(1000):
     #         self.creatNewGenericCase()
-    #         self.TT = TT()
-    #         self.TT.infer(self.KB, self.query)
-    #         result = self.TT.output
+    #         self.WSAT = WSAT()
+    #         self.WSAT.infer(self.KB, self.query)
+    #         result = self.WSAT.output
     #         flag = False
     #         if "YES" in result:
     #             flag = True
     #         if(flag != self.result):
-    #             test = False
-    #             print(f"TT fail:{i+1}")
-    #             print(self.result, flag)
-    #             writeError(self.track,self.query)
-    #             break
-    #         print(f"Generic TT pass:{i+1}")
-    #     print()
-    #     self.assertTrue(test)
-        
-    def test_generic_WSAT(self):
-        test = True
-        number_fail = 0
-        number_pass = 0
-        for i in range(100):
-            self.creatNewGenericCase()
-            self.WSAT = WSAT()
-            self.WSAT.infer(self.KB, self.query)
-            result = self.WSAT.output
-            flag = False
-            if "YES" in result:
-                flag = True
-            if(flag != self.result):
-                number_fail += 1
-                print(f"Generic WSAT fail:{i+1}")
-            else:
-                print(f"Generic WSAT pass:{i+1}")
-                number_pass += 1
+    #             number_fail += 1
+    #             print(f"Generic WSAT fail:{i+1}")
+    #         else:
+    #             print(f"Generic WSAT pass:{i+1}")
+    #             number_pass += 1
                 
-        print(f"FAIL:{number_fail}, PASS:{number_pass}")
-        self.assertTrue(True)
+    #     print(f"FAIL:{number_fail}, PASS:{number_pass}")
+    #     self.assertTrue(True)
         
     
         
-    def test_horn_WSAT(self):
-        test = True
-        number_fail = 0
-        number_pass = 0
-        for i in range(100):
-            self.creatNewCase()
-            self.WSAT = WSAT()
-            self.WSAT.infer(self.KB, self.query)
-            result = self.WSAT.output
-            flag = False
-            if "YES" in result:
-                flag = True
-            if(flag != self.result):
-                number_fail += 1
-                print(f"WSAT fail:{i+1}")
-            else:
-                print(f"WSAT pass:{i+1}")
-                number_pass += 1
+    # def test_horn_WSAT(self):
+    #     test = True
+    #     number_fail = 0
+    #     number_pass = 0
+    #     for i in range(100):
+    #         self.creatNewCase()
+    #         self.WSAT = WSAT()
+    #         self.WSAT.infer(self.KB, self.query)
+    #         result = self.WSAT.output
+    #         flag = False
+    #         if "YES" in result:
+    #             flag = True
+    #         if(flag != self.result):
+    #             number_fail += 1
+    #             print(f"WSAT fail:{i+1}")
+    #         else:
+    #             print(f"WSAT pass:{i+1}")
+    #             number_pass += 1
                 
-        print(f"FAIL:{number_fail}, PASS:{number_pass}")
-        self.assertTrue(True)
-        
+    #     print(f"FAIL:{number_fail}, PASS:{number_pass}")
+    #     self.assertTrue(True)
+         
     # def test_backward_chaining(self):
     #     test = True
     #     for i in range(1000):
