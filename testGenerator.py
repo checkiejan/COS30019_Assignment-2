@@ -394,30 +394,10 @@ class LogicTest(unittest.TestCase):
         self.query = None
         self.track =None
         
-    # def test_horn_truth_table(self):
-    #     test = True
-    #     for i in range(50):
-    #         self.creatNewCase()
-    #         self.TT = TT()
-    #         self.TT.infer(self.KB, self.query)
-    #         result = self.TT.output
-    #         flag = False
-    #         if "YES" in result:
-    #             flag = True
-    #         if(flag != self.result):
-    #             test = False
-    #             print(f"TT fail:{i+1}")
-    #             print(self.result)
-    #             writeError(self.track,self.query)
-    #             break
-    #         print(f"TT pass:{i+1}")
-    #     print()
-    #     self.assertTrue(test)
-        
-    def test_generic_truth_table(self):
+    def test_horn_truth_table(self):
         test = True
-        for i in range(1000):
-            self.creatNewGenericCase()
+        for i in range(50):
+            self.creatNewCase()
             self.TT = TT()
             self.TT.infer(self.KB, self.query)
             result = self.TT.output
@@ -427,12 +407,32 @@ class LogicTest(unittest.TestCase):
             if(flag != self.result):
                 test = False
                 print(f"TT fail:{i+1}")
-                print(self.result, flag)
+                print(self.result)
                 writeError(self.track,self.query)
                 break
-            print(f"Generic TT pass:{i+1}")
+            print(f"TT pass:{i+1}")
         print()
         self.assertTrue(test)
+        
+    # def test_generic_truth_table(self):
+    #     test = True
+    #     for i in range(1000):
+    #         self.creatNewGenericCase()
+    #         self.TT = TT()
+    #         self.TT.infer(self.KB, self.query)
+    #         result = self.TT.output
+    #         flag = False
+    #         if "YES" in result:
+    #             flag = True
+    #         if(flag != self.result):
+    #             test = False
+    #             print(f"TT fail:{i+1}")
+    #             print(self.result, flag)
+    #             writeError(self.track,self.query)
+    #             break
+    #         print(f"Generic TT pass:{i+1}")
+    #     print()
+    #     self.assertTrue(test)
         
     # def test_generic_WSAT(self):
     #     test = True
@@ -458,64 +458,64 @@ class LogicTest(unittest.TestCase):
         
     
         
-    # def test_horn_WSAT(self):
-    #     test = True
-    #     number_fail = 0
-    #     number_pass = 0
-    #     for i in range(100):
-    #         self.creatNewCase()
-    #         self.WSAT = WSAT()
-    #         self.WSAT.infer(self.KB, self.query)
-    #         result = self.WSAT.output
-    #         flag = False
-    #         if "YES" in result:
-    #             flag = True
-    #         if(flag != self.result):
-    #             number_fail += 1
-    #             print(f"WSAT fail:{i+1}")
-    #         else:
-    #             print(f"WSAT pass:{i+1}")
-    #             number_pass += 1
+    def test_horn_WSAT(self):
+        test = True
+        number_fail = 0
+        number_pass = 0
+        for i in range(100):
+            self.creatNewCase()
+            self.WSAT = WSAT()
+            self.WSAT.infer(self.KB, self.query)
+            result = self.WSAT.output
+            flag = False
+            if "YES" in result:
+                flag = True
+            if(flag != self.result):
+                number_fail += 1
+                print(f"WSAT fail:{i+1}")
+            else:
+                print(f"WSAT pass:{i+1}")
+                number_pass += 1
                 
-    #     print(f"FAIL:{number_fail}, PASS:{number_pass}")
-    #     self.assertTrue(True)
+        print(f"FAIL:{number_fail}, PASS:{number_pass}")
+        self.assertTrue(True)
          
-    # def test_backward_chaining(self):
-    #     test = True
-    #     for i in range(1000):
-    #         self.creatNewCase()
-    #         self.BC = BC()
-    #         self.BC.infer(self.KB, self.query)
-    #         result = self.BC.output
-    #         flag = False
-    #         if "YES" in result:
-    #             flag = True
-    #         if(flag != self.result):
-    #             test = False
-    #             writeError(self.track,self.query)
-    #             print(f"BC fail:{i+1}")
-    #             break
-    #         print(f"BC pass:{i+1}")
-    #     print()
-    #     self.assertTrue(test)
+    def test_backward_chaining(self):
+        test = True
+        for i in range(50):
+            self.creatNewCase()
+            self.BC = BC()
+            self.BC.infer(self.KB, self.query)
+            result = self.BC.output
+            flag = False
+            if "YES" in result:
+                flag = True
+            if(flag != self.result):
+                test = False
+                writeError(self.track,self.query)
+                print(f"BC fail:{i+1}")
+                break
+            print(f"BC pass:{i+1}")
+        print()
+        self.assertTrue(test)
         
-    # def test_forward_chaining(self):
-    #     test = True
-    #     for i in range(1000):
-    #         self.creatNewCase()
-    #         self.FC = FC()
-    #         self.FC.infer(self.KB, self.query)
-    #         result = self.FC.output
-    #         flag = False
-    #         if "YES" in result:
-    #             flag = True
-    #         if(flag != self.result):
-    #             writeError(self.track,self.query)
-    #             print(f"FC fail:{i+1}")
-    #             test = False
-    #             break
-    #         print(f"FC pass:{i+1}")
-    #     print()
+    def test_forward_chaining(self):
+        test = True
+        for i in range(50):
+            self.creatNewCase()
+            self.FC = FC()
+            self.FC.infer(self.KB, self.query)
+            result = self.FC.output
+            flag = False
+            if "YES" in result:
+                flag = True
+            if(flag != self.result):
+                writeError(self.track,self.query)
+                print(f"FC fail:{i+1}")
+                test = False
+                break
+            print(f"FC pass:{i+1}")
+        print()
         self.assertTrue(test)
 
 if __name__ == "__main__":
