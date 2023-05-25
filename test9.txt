@@ -1,4 +1,4 @@
-Tell: 
-
-Ask: 
-a || ~a
+TELL
+(a <=> (c => ~d)) & b & (b => a); c; ~f || g;
+ASK
+d

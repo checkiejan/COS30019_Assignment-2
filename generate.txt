@@ -1,4 +1,4 @@
 TELL
-A & n & x & i & i => x;i & o & A => o;x & P & j & A => o;i & i => A;A & i & i & n => A;n & x & A & j & P => P;x => n;x & j & n & o & P & j => x;A => x;o & o & i & j & P => i;A & A & x & P => i;A => A;o & i => i;x & i => o;j;P;x;n;o;i;
+p||C&(a=>a)||~L;L||(a<=>a)||~C&C&(a||a);(a&a)&b||((b<=>~b)<=>a)&~b;((b||p)&a)&~L&(a=>(C||~p));C||b||b;(a<=>a)&L;(a||a)&C&((p<=>C)&a);p;
 ASK
-A
+~L

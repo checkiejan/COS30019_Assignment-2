@@ -33,7 +33,7 @@ class FC:
             
             if (symbolList[currentSymbol] == False):
                 symbolList[currentSymbol] = True
-                self.output += currentSymbol + " ,"
+                self.output += currentSymbol + ", "
 
                 # Loop through the sentence in KB to find the symbol
                 for sentence in kb.sentences:

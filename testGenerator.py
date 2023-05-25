@@ -37,7 +37,6 @@ def createHornTest():
             temp = random.choice(symbols)
             while temp in statement: #make sure no repeated statement
                 temp = random.choice(symbols)
-                #print(temp)
             clauses.append(temp)
             statement.append(temp)
         else:
@@ -63,18 +62,17 @@ def joinClause(lst):
             temp += lst[i]
     return temp
 
-def createGenericSentence(symbols,operators = ["=>","=>","&","||"]):
+def createGenericSentence(symbols,operators = ["<=>","=>","&","||"]):
     clause = random.random()
-    if clause > 0.8: #statement or fact more than 0.7 is fact
+    if clause > 0.97: #statement or fact more than this probability is fact
         temp = random.choice(symbols)
         
         chance_negation = random.random()
         if chance_negation > 0.6:
             temp = "~"+temp
-            #print(temp)
         return temp
     else:
-        number_subclause = random.randint(2,5)
+        number_subclause = random.randint(2,6)
         sub_lst = []
         for j in range(number_subclause):
             chance_parathesis = random.random()
@@ -132,7 +130,7 @@ def createGenericSentence(symbols,operators = ["=>","=>","&","||"]):
             
 def createGenericTest():
     numberOfClause = random.randint(5,40)
-    operators = ["=>","=>","&","||"]
+    operators = ["<=>","=>","&","||"]
     clauses = []
     numberOfSymbols= random.randint(3,20)
     while numberOfSymbols > numberOfClause:
@@ -159,7 +157,6 @@ def createGenericTest():
                 chance_negation = random.random()
                 if chance_negation > 0.6:
                     temp = "~"+temp
-                #print(temp)
             clauses.append(temp)
             statement.append(temp)
         else:
@@ -221,8 +218,65 @@ def createGenericTest():
     kb = ";".join(clauses) 
     with open("generate.txt", 'w') as f:
             f.write(f"TELL\n{kb};\nASK\n{query}")
+
+def postfix_to_infix(postfix_expr):
+    stack = []
+
+    for symbol in postfix_expr:
+        # If the symbol is a propositional variable, push it to the stack
+        if symbol.isalpha():
+            stack.append(symbol)
+        # If the symbol is a unary operator (~), pop the last element from the stack, combine it with the operator
+        # and push the result back to the stack
+        elif symbol == "~":
+            operand = stack.pop()
+            new_expr = f"{symbol}({operand})"
+            stack.append(new_expr)
+        # If the symbol is a binary operator (&, |, =>), pop the last two elements from the stack,
+        # combine them with the operator and push the result back to the stack
+        elif symbol in ["&", "|", ">>"]:
+            operand2 = stack.pop()
+            operand1 = stack.pop()
+            new_expr = f"({operand1} {symbol} {operand2})"
+            stack.append(new_expr)
+        # If the symbol is a biconditional operator (<=>), replace it with a combination of & and | operators
+        elif symbol == "<=>":
+            operand2 = stack.pop()
+            operand1 = stack.pop()
+            new_expr = f"(({operand1} & {operand2}) | (~{operand1} & ~{operand2}))"
+            stack.append(new_expr)
+    # The last element in the stack is the infix expression
+    return stack[-1]
+
+
+def posfixEval(input): #Shunting Yard algorithm to transform into postfix 
+    operator_stack = []  # Stack to store operators
+    lst = [] #list to store the sentence
+    precedence = {"~": 3, "&": 2, "|": 1, ">>": 0, "<=>": 0}
+
+    for token in input:
+        if token in ["~", "&", "|", ">>", "<=>"]:
+            while operator_stack and operator_stack[-1] != "(" and precedence[token] <= precedence[operator_stack[-1]]:
+                temp = operator_stack.pop()
+                lst.append(temp)
+            operator_stack.append(token)
+        elif token == "(":
+            operator_stack.append(token)
+        elif token == ")":
+            while operator_stack and operator_stack[-1] != "(":
+                temp = operator_stack.pop()
+                lst.append(temp)
+            operator_stack.pop()  # Remove "(" from stack
+        else:
+            lst.append(token)
+
+    while operator_stack:
+        temp = operator_stack.pop()
+        lst.append(temp)
+    return lst #assign the list to the sentence list
+
             
-def processInput(tracks):
+def processHornInput(tracks):
     result = tracks.copy()
     for i in range(len(result)):
         temp = result[i]
@@ -232,20 +286,34 @@ def processInput(tracks):
                 temp = temp[:0] + '(' + temp[0:]
                 index = temp.find(">>")
                 temp = temp[:index] + ')' + temp[index:]
-        
         result[i] = temp
     return result
-def processGenericInput(tracks):
+def processGenericInput(tracks, query):
     result = tracks.copy()
     for i in range(len(result)):
         temp = result[i]
-        if re.search("=>", temp):
-            temp = temp.replace("=>",">>")
-        if re.search("||", temp):
-            temp = temp.replace("||","|")
+        input = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", temp)
+        for j in range(len(input)):
+            if input[j] == "=>":
+                input[j] = ">>"
+            if input[j] == "||":
+                input[j] = "|"
         
+        lst = posfixEval(input)
+       
+        temp = postfix_to_infix(lst)
         result[i] = temp
-    return result
+    temp = query
+    input = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", temp)
+    for j in range(len(input)):
+        if input[j] == "=>":
+            input[j] = ">>"
+        if input[j] == "||":
+            input[j] = "|"
+    lst = posfixEval(input)
+    
+    query = postfix_to_infix(lst)
+    return result,query
         
 def writeError(track,query):
     kb = ";".join(track) 
@@ -275,7 +343,7 @@ class LogicTest(unittest.TestCase):
             try:
                 createHornTest()
                 tracks,query = readKB()
-                tracks_processed = processInput(tracks)
+                tracks_processed = processHornInput(tracks)
                 self.track = tracks
                 Set = set()
                 for x in tracks_processed:
@@ -290,6 +358,31 @@ class LogicTest(unittest.TestCase):
         self.KB = KB(tracks)
         self.query = Sentence(query)
     
+    def creatNewGenericCase(self):
+        res = False
+        tracks = None
+        query = None
+        while not res:
+            try:
+                createGenericTest()
+                tracks,query = readKB()
+                tracks_processed,query_gen = processGenericInput(tracks,query)
+                self.track = tracks
+                Set = set()
+                t =0
+                for x in tracks_processed:
+                    exp = parse_expr(x)
+                    Set.add(exp)
+                    t+=1
+                query_processed = parse_expr(query_gen)
+                self.result = sympy.logic.inference.entails(query_processed,Set)
+                res = True
+            except:
+                continue
+        self.KB = KB(tracks)
+        self.query = Sentence(query)
+        
+    
     def setUp(self):
         # This method will be called before every test
         
@@ -300,11 +393,10 @@ class LogicTest(unittest.TestCase):
         self.KB = None
         self.query = None
         self.track =None
-        self.creatNewCase()
         
-    # def test_truth_table(self):
+    # def test_horn_truth_table(self):
     #     test = True
-    #     for i in range(1000):
+    #     for i in range(50):
     #         self.creatNewCase()
     #         self.TT = TT()
     #         self.TT.infer(self.KB, self.query)
@@ -322,29 +414,72 @@ class LogicTest(unittest.TestCase):
     #     print()
     #     self.assertTrue(test)
         
-    def test_WSAT(self):
+    def test_generic_truth_table(self):
         test = True
-        number_fail = 0
-        number_pass = 0
         for i in range(1000):
-            self.creatNewCase()
-            self.WSAT = WSAT()
-            self.WSAT.infer(self.KB, self.query)
-            result = self.WSAT.output
+            self.creatNewGenericCase()
+            self.TT = TT()
+            self.TT.infer(self.KB, self.query)
+            result = self.TT.output
             flag = False
             if "YES" in result:
                 flag = True
             if(flag != self.result):
-                number_fail += 1
-                print(f"WSAT fail:{i+1}")
-            else:
-                print(f"WSAT pass:{i+1}")
-                number_pass += 1
+                test = False
+                print(f"TT fail:{i+1}")
+                print(self.result, flag)
+                writeError(self.track,self.query)
+                break
+            print(f"Generic TT pass:{i+1}")
+        print()
+        self.assertTrue(test)
+        
+    # def test_generic_WSAT(self):
+    #     test = True
+    #     number_fail = 0
+    #     number_pass = 0
+    #     for i in range(1000):
+    #         self.creatNewGenericCase()
+    #         self.WSAT = WSAT()
+    #         self.WSAT.infer(self.KB, self.query)
+    #         result = self.WSAT.output
+    #         flag = False
+    #         if "YES" in result:
+    #             flag = True
+    #         if(flag != self.result):
+    #             number_fail += 1
+    #             print(f"Generic WSAT fail:{i+1}")
+    #         else:
+    #             print(f"Generic WSAT pass:{i+1}")
+    #             number_pass += 1
                 
-        print(f"FAIL:{number_fail}, PASS:{number_pass}")
+    #     print(f"FAIL:{number_fail}, PASS:{number_pass}")
+    #     self.assertTrue(True)
         
-        self.assertTrue(True)
+    
         
+    # def test_horn_WSAT(self):
+    #     test = True
+    #     number_fail = 0
+    #     number_pass = 0
+    #     for i in range(100):
+    #         self.creatNewCase()
+    #         self.WSAT = WSAT()
+    #         self.WSAT.infer(self.KB, self.query)
+    #         result = self.WSAT.output
+    #         flag = False
+    #         if "YES" in result:
+    #             flag = True
+    #         if(flag != self.result):
+    #             number_fail += 1
+    #             print(f"WSAT fail:{i+1}")
+    #         else:
+    #             print(f"WSAT pass:{i+1}")
+    #             number_pass += 1
+                
+    #     print(f"FAIL:{number_fail}, PASS:{number_pass}")
+    #     self.assertTrue(True)
+         
     # def test_backward_chaining(self):
     #     test = True
     #     for i in range(1000):
@@ -381,7 +516,7 @@ class LogicTest(unittest.TestCase):
     #             break
     #         print(f"FC pass:{i+1}")
     #     print()
-    #     self.assertTrue(test)
+        self.assertTrue(test)
 
 if __name__ == "__main__":
     unittest.main()
