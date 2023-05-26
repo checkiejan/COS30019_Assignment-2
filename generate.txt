@@ -1,4 +1,4 @@
 TELL
-A => D;A & A => D;P & P => D;D => A;D => A;P & A => P;D & D => A;P & P => A;A => A;D => A;A & D => D;D & P => A;D & D => A;D => A;A => D;P;A;
+r||~i;~y&(a&a);(a<=>a)&(a=>a)&r||~r||((i&i)<=>a);r||r||i;(a=>(~L&i))&(a<=>a);~L||((~i<=>r)=>a)&(a=>a);(a<=>a)&L&((r=>L)=>a)||(a<=>a);((y<=>~r)||a)&~r&(a||a);r&~L||~y;r&r&~y&(a&a);L&(a||a)||i&i||r;~i||(a=>a)||(a=>a)&((~i&~y)||a);((~r<=>y)<=>a)||~r&y||~L||i;~r&r||((L||y)&a)&~i;(a||a)||r;L;i;r;
 ASK
-D
+((i||y)||a)

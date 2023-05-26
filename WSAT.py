@@ -6,8 +6,13 @@ class WSAT:
         self.output = "NO"
 
     # This is the main function that performs the WalkSAT algorithm
-    def infer(self, kb, query):
-        maxIteration = int(input("Enter the max iteration"))
+    def infer(self, kb, query,test=False):
+        maxIteration =400
+        if test: #when using for unit test
+            maxIteration = 600
+        else:
+            maxIteration = int(input("Enter the max iteration"))
+        
         relevanceCount = self.relevanceCount(kb.sentences)
 
         # Create a random model using the symbols in the knowledge base
