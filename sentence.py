@@ -27,6 +27,8 @@ class Sentence:
         
                     
     def createSentence(self,string):
+        while "~~" in string:
+            string = string.replace("~~","")
         lst = re.findall("[a-zA-Z0-9]+|[&]|[~]|[|]+|\w*(?<!<)=>|<=>|[(]|[)]", string) #separate the sentence into a list of symbols and operator
         self.lst = lst
         self.posfixEval() #transform sentence into a postfix form
@@ -99,7 +101,6 @@ class Sentence:
                 right_operand = stack.pop()
                 if token != "~":
                     left_operand = stack.pop()
-               
                 if token == "~":
                     result = not right_operand
                 elif token == "&":
@@ -116,3 +117,5 @@ class Sentence:
                 stack.append(token)
 
         return stack[0]
+    
+            
