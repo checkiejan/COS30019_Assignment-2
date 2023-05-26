@@ -12,8 +12,8 @@ class PropositionalSymbol:
     def getCharacter(self):
         return self.character
         
-    def __eq__(self, other):
-        if type(other)  is not PropositionalSymbol:
+    def __eq__(self, other): #check equavilence of the symbol based on the character
+        if type(other)  is not PropositionalSymbol: #only accept the same object
             return False
         return self.character == other.character
     
