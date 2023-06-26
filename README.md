@@ -1,4 +1,4 @@
-#COS30019 - Assignment 2 - Inference Engine
+# COS30019 - Assignment 2 - Inference Engine
 
 Welcome to the GitHub repository for the COS30019 Inference Engines assignment. This assignment focuses on creating an inference engine that supports backward chaining, forward chaining, truth table, and WalkSAT algorithms. The inference engine is capable of handling both horn and generic clauses, with backward and forward chaining specifically designed for horn clauses.
 
@@ -28,7 +28,7 @@ The repository includes an automated test case generator `testGenerator.py` that
 
 ## Usage
 To run the inference engine with a specific algorithm and input file, use the following syntax:
-python iengine.py <method> <filename>
+`python iengine.py <method> <filename>`
 
 - `<method>`: Specifies the algorithm to use (`backward`, `forward`, `truth_table`, or `walksat`).
 - `<filename>`: Specifies the name of the text file containing the knowledge base and query to determine if the knowledge base entails the query.
