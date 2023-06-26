@@ -16,10 +16,10 @@ Inference engines play a vital role in automated reasoning and logical deduction
 ## Algorithms
 The repository contains separate files for each inference algorithm implemented as a class. The following algorithms are included:
 
-1. `BackwardChaining.py`: Implements the backward chaining algorithm for horn clauses.
-2. `ForwardChaining.py`: Implements the forward chaining algorithm for horn clauses.
-3. `TruthTable.py`: Implements the truth table algorithm for both horn and generic clauses.
-4. `WalkSAT.py`: Implements the WalkSAT algorithm for both horn and generic clauses.
+1. `BC.py`: Implements the backward chaining algorithm for horn clauses.
+2. `FC.py`: Implements the forward chaining algorithm for horn clauses.
+3. `TT.py`: Implements the truth table algorithm for both horn and generic clauses.
+4. `WSAT.py`: Implements the WalkSAT algorithm for both horn and generic clauses.
 
 Each class provides the necessary methods and functionality to perform the corresponding inference algorithm.
 
