@@ -1,4 +1,4 @@
 TELL
-r||~i;~y&(a&a);(a<=>a)&(a=>a)&r||~r||((i&i)<=>a);r||r||i;(a=>(~L&i))&(a<=>a);~L||((~i<=>r)=>a)&(a=>a);(a<=>a)&L&((r=>L)=>a)||(a<=>a);((y<=>~r)||a)&~r&(a||a);r&~L||~y;r&r&~y&(a&a);L&(a||a)||i&i||r;~i||(a=>a)||(a=>a)&((~i&~y)||a);((~r<=>y)<=>a)||~r&y||~L||i;~r&r||((L||y)&a)&~i;(a||a)||r;L;i;r;
+k & k => T;T & k & k => T;n & k & T => k;T & k => T;T & T => n;n => n;n => k;k => T;p;k;T;
 ASK
-((i||y)||a)
+n
