@@ -30,7 +30,7 @@ The repository includes an automated test case generator `testGenerator.py` that
 To run the inference engine with a specific algorithm and input file, use the following syntax:
 `python iengine.py <method> <filename>`
 
-- `<method>`: Specifies the algorithm to use (`backward`, `forward`, `truth_table`, or `walksat`).
+- `<method>`: Specifies the algorithm to use (`bc`, `fc`, `tt`, or `wsat`).
 - `<filename>`: Specifies the name of the text file containing the knowledge base and query to determine if the knowledge base entails the query.
 
 Make sure to have Python installed on your system before running the inference engine.
